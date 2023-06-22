@@ -1,0 +1,11 @@
+.item {
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  align-items: center;
+}

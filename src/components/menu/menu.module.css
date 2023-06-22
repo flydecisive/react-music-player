@@ -1,0 +1,15 @@
+.list {
+  padding: 18px 0 10px 0;
+}
+
+.item {
+  padding: 5px 0;
+  margin-bottom: 16px;
+}
+
+.link {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
