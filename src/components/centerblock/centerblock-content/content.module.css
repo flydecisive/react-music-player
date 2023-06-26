@@ -1,0 +1,30 @@
+.title {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  margin-bottom: 24px;
+  background-clip: content-box;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  background-clip: content-box;
+  padding-right: 8px;
+}
+
+.playlist::-webkit-scrollbar {
+  width: 4px;
+}
+
+.playlist::-webkit-scrollbar-track {
+  background: #4b4949;
+  border-radius: 10px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 10px;
+  width: 4px;
+  height: 65px;
+}

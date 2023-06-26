@@ -1,0 +1,36 @@
+.col {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  color: #696969;
+  text-transform: uppercase;
+}
+
+.svg {
+  width: 12px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
+
+:global(.col01) {
+  /* width: 447px; */
+  grid-column: 1 / 6;
+}
+
+:global(.col02) {
+  /* width: 321px; */
+  grid-column: 6 / 12;
+}
+
+:global(.col03) {
+  /* width: 245px; */
+  grid-column: 12 / 16;
+}
+:global(.col04) {
+  width: 80px;
+  grid-column: 16 / 17;
+  text-align: start;
+}
