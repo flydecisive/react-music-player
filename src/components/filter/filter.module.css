@@ -14,8 +14,11 @@
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+  position: relative;
 }
 
-.button:not(:last-child) {
-  margin-right: 10px;
+.active {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
 }
