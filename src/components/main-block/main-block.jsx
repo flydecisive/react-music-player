@@ -5,13 +5,13 @@ import Footer from '../footer/footer';
 import Bar from '../bar/bar';
 import styles from './main.module.css';
 
-function Main() {
+function Main({ loading }) {
   return (
     <main className={styles.main}>
       <Nav />
-      <Centerblock />
-      <Sidebar />
-      <Bar />
+      <Centerblock loading={loading} />
+      <Sidebar loading={loading} />
+      <Bar loading={loading} />
       <Footer />
     </main>
   );
