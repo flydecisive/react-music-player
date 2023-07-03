@@ -2,10 +2,12 @@ import Dropdown from '../../dropdown/dropdown';
 import styles from '../filter.module.css';
 
 function FilterButton({ toggleButton, dropdownList, text, id, buttonsState }) {
-  let visible;
-  if (buttonsState) {
-    visible = buttonsState[id];
-  }
+  // let visible;
+  // if (buttonsState) {
+  //   visible = buttonsState[id];
+  // }
+
+  const visible = buttonsState?.id ?? null;
 
   return (
     <div>
