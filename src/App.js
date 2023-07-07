@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import Main from './components/main-block/main-block';
+import AppRoutes from './routes';
+// import Main from './pages/main/main';
 import styles from './App.module.css';
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Main loading={loading} />
+      <AppRoutes loading={loading} />
+      {/* <Main loading={loading} /> */}
     </div>
   );
 }

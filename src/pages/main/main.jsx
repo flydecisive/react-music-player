@@ -1,8 +1,8 @@
-import Nav from '../nav/nav';
-import Centerblock from '../centerblock/centerblock';
-import Sidebar from '../sidebar/sidebar';
-import Footer from '../footer/footer';
-import Bar from '../bar/bar';
+import Nav from '../../components/nav/nav';
+import Centerblock from '../../components/centerblock/centerblock';
+import Sidebar from '../../components/sidebar/sidebar';
+import Footer from '../../components/footer/footer';
+import Bar from '../../components/bar/bar';
 import styles from './main.module.css';
 
 function Main({ loading }) {

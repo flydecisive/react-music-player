@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Search from '../search/search';
 import Filter from '../filter/filter';
 import CenterblockContent from './centerblock-content/centerblock-content';
-import mainCenterblockStyles from '../main-block/main.module.css';
+import mainCenterblockStyles from '../../pages/main/main.module.css';
 import styles from './centerblock.module.css';
 
 function Centerblock({ loading }) {

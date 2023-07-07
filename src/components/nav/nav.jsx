@@ -4,7 +4,7 @@ import Menu from '../menu/menu';
 import styles from './nav.module.css';
 import logoStyles from './logo.module.css';
 import logo from '../../assets/img/logo.png';
-import mainNavStyles from '../main-block/main.module.css';
+import mainNavStyles from '../../pages/main/main.module.css';
 
 function Nav() {
   const [burgerClicked, setBurgerClicked] = useState(false);
