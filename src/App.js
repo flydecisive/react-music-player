@@ -13,7 +13,6 @@ function App() {
   return (
     <div className={styles.App}>
       <AppRoutes loading={loading} />
-      {/* <Main loading={loading} /> */}
     </div>
   );
 }
