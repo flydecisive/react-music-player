@@ -1,8 +1,17 @@
+import { NavLink, useNavigate } from 'react-router-dom';
+
 import styles from './auth-page.module.css';
 import blackLogo from '../../assets/img/black-logo.png';
 import ButtonComponent from '../button/button';
 
 function AuthPage({ inputs, type }) {
+  const navigate = useNavigate();
+
+  const setCookie = () => {
+    document.cookie = 'token=true';
+    navigate('/');
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
@@ -14,11 +23,19 @@ function AuthPage({ inputs, type }) {
             <div className={styles.buttons}>
               {type === 'login' ? (
                 <>
-                  <ButtonComponent heading="Войти" id={1} />
-                  <ButtonComponent heading="Зарегистрироваться" id={2} />
+                  <ButtonComponent
+                    heading="Войти"
+                    id={1}
+                    setCookie={setCookie}
+                  />
+                  <NavLink to="/register">
+                    <ButtonComponent heading="Зарегистрироваться" id={2} />
+                  </NavLink>
                 </>
               ) : (
-                <ButtonComponent heading="Зарегистрироваться" id={3} />
+                <NavLink to="/login">
+                  <ButtonComponent heading="Зарегистрироваться" id={3} />
+                </NavLink>
               )}
             </div>
           </div>

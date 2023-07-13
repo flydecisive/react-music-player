@@ -1,6 +1,6 @@
 import styles from './button.module.css';
 
-function ButtonComponent({ heading, id }) {
+function ButtonComponent({ heading, id, setCookie }) {
   let buttonStyle;
   switch (id) {
     case 1:
@@ -15,7 +15,11 @@ function ButtonComponent({ heading, id }) {
       break;
   }
   return (
-    <button className={`${styles.button} ${buttonStyle}`} type="submit">
+    <button
+      className={`${styles.button} ${buttonStyle}`}
+      type="submit"
+      onClick={setCookie}
+    >
       {heading}
     </button>
   );
