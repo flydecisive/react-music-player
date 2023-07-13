@@ -13,9 +13,9 @@ function Menu() {
           </NavLink>
         </li>
         <li className={styles.item}>
-          <a href="http://" className={styles.link}>
+          <NavLink className={styles.link} to="/favorites">
             Мой плейлист
-          </a>
+          </NavLink>
         </li>
         <li className={styles.item}>
           <a href="http://" className={styles.link}>
