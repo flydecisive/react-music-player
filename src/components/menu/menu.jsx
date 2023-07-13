@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import navMenuStyles from '../nav/nav.module.css';
 import styles from './menu.module.css';
 
@@ -6,9 +8,9 @@ function Menu() {
     <div className={`${navMenuStyles.menu} menu`}>
       <ul className={styles.list}>
         <li className={styles.item}>
-          <a href="http://" className={styles.link}>
+          <NavLink className={styles.link} to="/">
             Главное
-          </a>
+          </NavLink>
         </li>
         <li className={styles.item}>
           <a href="http://" className={styles.link}>
