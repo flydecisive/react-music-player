@@ -1,11 +1,16 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { useEffect } from 'react';
 import styles from './auth-page.module.css';
 import blackLogo from '../../assets/img/black-logo.png';
 import ButtonComponent from '../button/button';
 
 function AuthPage({ inputs, type }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.cookie = 'token=false';
+  }, []);
 
   const setCookie = () => {
     document.cookie = 'token=true';

@@ -9,16 +9,16 @@ function App() {
     const { cookie } = document;
     const symbol = cookie.indexOf('=') + 1;
     const value = cookie.slice(symbol);
-    setAuth(value);
+    return value;
   };
 
   useEffect(() => {
-    setTimeout(getCookie, 1000);
-  });
+    setAuth(getCookie);
+  }, []);
 
   return (
     <div className={styles.App}>
-      <AppRoutes setAuth={setAuth} auth={auth} />
+      <AppRoutes auth={auth} />
     </div>
   );
 }
