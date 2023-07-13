@@ -16,9 +16,9 @@ function SidebarBlock({ loading }) {
         </>
       ) : (
         <div className={styles.list}>
-          <SidebarItem img={daysCover} />
-          <SidebarItem img={dansCover} />
-          <SidebarItem img={indieCover} />
+          <SidebarItem img={daysCover} id={1} />
+          <SidebarItem img={dansCover} id={2} />
+          <SidebarItem img={indieCover} id={3} />
         </div>
       )}
     </div>

@@ -1,13 +1,13 @@
 // компонент плэйлиста
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from '../sidebar.module.css';
 
-function SidebarItem({ img }) {
+function SidebarItem({ img, id }) {
   return (
     <div className={styles.item}>
-      <Link to="/playlist">
+      <NavLink to={`/category/${id}`}>
         <img className={styles.img} src={img} alt="playlist" />
-      </Link>
+      </NavLink>
     </div>
   );
 }

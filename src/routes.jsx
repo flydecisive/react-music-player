@@ -12,7 +12,7 @@ function AppRoutes({ loading }) {
       <Route path="/" element={<Main loading={loading} />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/playlist" element={<PlaylistPage />} />
+      <Route path="/category/:id" element={<PlaylistPage />} />
       <Route path="/favorites" element={<Favorites />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
