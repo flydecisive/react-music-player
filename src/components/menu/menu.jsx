@@ -18,9 +18,9 @@ function Menu() {
           </NavLink>
         </li>
         <li className={styles.item}>
-          <a href="http://" className={styles.link}>
+          <NavLink className={styles.link} to="/login">
             Войти
-          </a>
+          </NavLink>
         </li>
       </ul>
     </div>
