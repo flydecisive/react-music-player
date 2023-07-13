@@ -3,7 +3,7 @@ import blackLogo from '../../assets/img/black-logo.png';
 
 function AuthPage({ inputs, buttons }) {
   return (
-    <div className={styles['auth-root']}>
+    <div className={styles.root}>
       <div className={styles.wrapper}>
         <div className={styles.content}>
           <img src={blackLogo} alt="Logo" />

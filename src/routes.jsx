@@ -3,6 +3,7 @@ import Main from './pages/main/main';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 import NotFound from './pages/not-found/not-found';
+import PlaylistPage from './pages/playlist-page/playlist-page';
 
 function AppRoutes({ loading }) {
   return (
@@ -11,6 +12,7 @@ function AppRoutes({ loading }) {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/playlist" element={<PlaylistPage />} />
     </Routes>
   );
 }
