@@ -1,6 +1,5 @@
 .main {
   flex: 1 1 auto;
-  /* display: flex; */
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   flex-wrap: wrap;

@@ -1,0 +1,7 @@
+.wrapper {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
