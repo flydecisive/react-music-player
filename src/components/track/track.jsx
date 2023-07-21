@@ -7,7 +7,7 @@ import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
 
-function Track({ item, loading }) {
+function Track({ item, loading, setChoosedTrack }) {
   return (
     <div className={`${playlistStyles.track} track`}>
       {loading ? (
@@ -27,7 +27,13 @@ function Track({ item, loading }) {
           </div>
         </>
       ) : (
-        <>
+        <div
+          className={styles.wrapper}
+          onClick={() => setChoosedTrack(item.id)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={() => setChoosedTrack(item.id)}
+        >
           <div className={styles.title}>
             <div className={styles['title-image']}>
               <svg className={styles['title-svg']} alt="music">
@@ -35,20 +41,16 @@ function Track({ item, loading }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className={styles['title-link']} href="http://">
+              <p className={styles['title-link']}>
                 {item.author} <span className={styles['title-span']} />
-              </a>
+              </p>
             </div>
           </div>
           <div className={styles.author}>
-            <a className={styles['author-link']} href="http://">
-              {item.name}
-            </a>
+            <p className={styles['author-link']}>{item.name}</p>
           </div>
           <div className={styles.album}>
-            <a className={styles['album-link']} href="http://">
-              {item.album}
-            </a>
+            <p className={styles['album-link']}>{item.album}</p>
           </div>
           <div className={styles.time}>
             <svg className={styles['time-svg']} alt="time">
@@ -58,7 +60,7 @@ function Track({ item, loading }) {
               {secondsToTime(item.duration_in_seconds)}
             </span>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

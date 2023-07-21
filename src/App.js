@@ -16,22 +16,14 @@ function App() {
       setTracks(tracksData);
       setLoading(false);
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(
+        `не удалось загрузить плейлист, попробуйте позже ${error.message}`
+      );
     }
   };
 
   useEffect(() => {
     getAllTracks();
-    // try {
-    //   getTracks().then((data) => {
-    //     setTracks(data);
-    //   });
-    // } catch (error) {
-    //   setErrorMessage(error.message);
-    // } finally {
-    //   console.log(loading);
-    //   setLoading(false);
-    // }
 
     setAuth(getCookie);
   }, []);

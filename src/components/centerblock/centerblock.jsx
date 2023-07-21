@@ -5,7 +5,7 @@ import CenterblockContent from './centerblock-content/centerblock-content';
 import mainCenterblockStyles from '../../pages/main/main.module.css';
 import styles from './centerblock.module.css';
 
-function Centerblock({ loading, tracks, errorMessage }) {
+function Centerblock({ loading, tracks, errorMessage, setChoosedTrack }) {
   return (
     <div className={`${mainCenterblockStyles.centerblock} centerblock`}>
       <Search />
@@ -15,6 +15,7 @@ function Centerblock({ loading, tracks, errorMessage }) {
         tracks={tracks}
         loading={loading}
         errorMessage={errorMessage}
+        setChoosedTrack={setChoosedTrack}
       />
     </div>
   );

@@ -1,9 +1,9 @@
 import BarContent from './bar-content/bar-content';
 import './bar.module.css';
 
-function Bar({ loading }) {
+function Bar({ loading, barVisible }) {
   return (
-    <div className="bar">
+    <div className={`bar ${barVisible ? 'visible' : 'not-visible'}`}>
       <BarContent loading={loading} />
     </div>
   );
