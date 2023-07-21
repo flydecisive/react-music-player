@@ -6,7 +6,7 @@ import trackPlayStyles from '../player/player.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import Skeleton from '../skeleton/skeleton';
 
-function TrackPlay({ loading }) {
+function TrackPlay({ loading, playTrack }) {
   return (
     <div className={`${trackPlayStyles['track-play']} track-play`}>
       <div className={styles.contain}>
@@ -31,12 +31,12 @@ function TrackPlay({ loading }) {
             </div>
             <div className={styles.author}>
               <a className={styles['author-link']} href="http://">
-                Ты та...
+                {playTrack?.name}
               </a>
             </div>
             <div className={styles.album}>
               <a className={styles['album-link']} href="http://">
-                Баста
+                {playTrack?.author}
               </a>
             </div>
           </>

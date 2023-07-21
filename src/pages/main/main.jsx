@@ -9,10 +9,16 @@ import styles from './main.module.css';
 function Main({ tracks, errorMessage, loading }) {
   const [choosedTrack, setChoosedTrack] = useState();
   const [barVisible, setBarVisible] = useState(false);
+  const [playTrack, setPlayTrack] = useState();
 
   useEffect(() => {
-    console.log(choosedTrack);
     if (choosedTrack) setBarVisible(true);
+
+    for (let i = 0; i < tracks?.length; i += 1) {
+      if (tracks[i].id === choosedTrack) {
+        setPlayTrack(tracks[i]);
+      }
+    }
   });
 
   return (
@@ -25,7 +31,7 @@ function Main({ tracks, errorMessage, loading }) {
         setChoosedTrack={setChoosedTrack}
       />
       <Sidebar loading={loading} />
-      <Bar loading={loading} barVisible={barVisible} />
+      <Bar loading={loading} barVisible={barVisible} playTrack={playTrack} />
       <Footer />
     </main>
   );
