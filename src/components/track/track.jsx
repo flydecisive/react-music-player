@@ -11,7 +11,7 @@ function Track({ item, loading, setChoosedTrack }) {
   return (
     <div className={`${playlistStyles.track} track`}>
       {loading ? (
-        <>
+        <div className={styles.wrapper}>
           <div className={styles.title}>
             <Skeleton width="51px" height="51px" />
             <Skeleton width="145px" height="24px" />
@@ -25,7 +25,7 @@ function Track({ item, loading, setChoosedTrack }) {
           <div className={styles.time}>
             <Skeleton width="50px" height="24px" />
           </div>
-        </>
+        </div>
       ) : (
         <div
           className={styles.wrapper}

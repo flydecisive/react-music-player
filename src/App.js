@@ -6,7 +6,7 @@ import { getCookie } from './consts/helpers';
 
 function App() {
   const [auth, setAuth] = useState();
-  const [tracks, setTracks] = useState(null);
+  const [tracks, setTracks] = useState(Array(5).fill({}));
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,14 +17,13 @@ function App() {
       setLoading(false);
     } catch (error) {
       setErrorMessage(
-        `не удалось загрузить плейлист, попробуйте позже ${error.message}`
+        `Не удалось загрузить плейлист, попробуйте позже ${error.message}`
       );
     }
   };
 
   useEffect(() => {
     getAllTracks();
-
     setAuth(getCookie);
   }, []);
 
