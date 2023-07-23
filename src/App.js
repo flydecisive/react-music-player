@@ -19,6 +19,8 @@ function App() {
       setErrorMessage(
         `Не удалось загрузить плейлист, попробуйте позже ${error.message}`
       );
+    } finally {
+      setLoading(false);
     }
   };
 
