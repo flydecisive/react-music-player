@@ -6,6 +6,14 @@
   background: rgba(28, 28, 28, 0.5);
 }
 
+:global(.visible) {
+  visibility: visible;
+}
+
+:global(.not-visible) {
+  visibility: hidden;
+}
+
 .content {
   display: flex;
   flex-direction: column;

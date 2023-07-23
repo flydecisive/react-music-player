@@ -1,3 +1,10 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  align-items: center;
+  cursor: pointer;
+}
+
 .title {
   display: flex;
   flex-direction: row;

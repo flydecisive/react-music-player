@@ -7,11 +7,20 @@ import PlaylistPage from './pages/playlist-page/playlist-page';
 import Favorites from './pages/favorites/favorites';
 import ProtectedRoute from './components/protected-route/protected-route';
 
-function AppRoutes({ loading, auth }) {
+function AppRoutes({ loading, auth, tracks, errorMessage }) {
   return (
     <Routes>
       <Route element={<ProtectedRoute isAllowed={auth} />}>
-        <Route path="/" element={<Main loading={loading} />} />
+        <Route
+          path="/"
+          element={
+            <Main
+              loading={loading}
+              tracks={tracks}
+              errorMessage={errorMessage}
+            />
+          }
+        />
         <Route path="/category/:id" element={<PlaylistPage />} />
         <Route path="/favorites" element={<Favorites />} />
       </Route>
