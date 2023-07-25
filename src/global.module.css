@@ -1,16 +1,18 @@
 :global(
     ._btn-icon:active .track-play__like-svg,
-    ._btn-icon:active .track-play__dislike-svg
+    ._btn-icon:active .track-play__dislike-svg,
+    ._btn-icon:active .track-play__repeat-svg
   ) {
   fill: #696969;
   stroke: #ffffff;
   cursor: pointer;
 }
 
-:global {
-  ._btn-icon: active svg;
+:global(audio) {
+  display: none;
 }
- {
+
+:global(._btn-icon:active svg) {
   fill: transparent;
   stroke: #ffffff;
   cursor: pointer;

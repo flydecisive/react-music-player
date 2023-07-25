@@ -1,17 +1,18 @@
+import { useState } from 'react';
+
 import Player from '../../player/player';
 import Volume from '../../volume/volume';
 import styles from '../bar.module.css';
 
 function BarContent({ loading, playTrack }) {
+  const [volume, setVolume] = useState(50);
+
   return (
     <div className={styles.content}>
-      <audio controls src={`${playTrack?.track_file}`}>
-        <track kind="captions" />
-      </audio>
-      <div className={styles['player-progress']} />
+      <input type="range" />
       <div className={styles['player-block']}>
-        <Player loading={loading} playTrack={playTrack} />
-        <Volume />
+        <Player loading={loading} playTrack={playTrack} volume={volume} />
+        <Volume setVolume={setVolume} />
       </div>
     </div>
   );
