@@ -1,7 +1,18 @@
+:global(._btn-icon:hover svg) {
+  fill: transparent;
+  stroke: #acacac;
+  cursor: pointer;
+}
+
+:global(._btn-icon:active svg) {
+  fill: #fff;
+  stroke: #ffffff;
+  cursor: pointer;
+}
+
 :global(
     ._btn-icon:active .track-play__like-svg,
-    ._btn-icon:active .track-play__dislike-svg,
-    ._btn-icon:active .track-play__repeat-svg
+    ._btn-icon:active .track-play__dislike-svg
   ) {
   fill: #696969;
   stroke: #ffffff;
@@ -12,21 +23,9 @@
   display: none;
 }
 
-:global(._btn-icon:active svg) {
-  fill: transparent;
-  stroke: #ffffff;
-  cursor: pointer;
-}
-
 :global(._btn-text:active) {
   border-color: #ad61ff;
   color: #ad61ff;
-  cursor: pointer;
-}
-
-:global(._btn-icon:hover svg) {
-  fill: transparent;
-  stroke: #acacac;
   cursor: pointer;
 }
 

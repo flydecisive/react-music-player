@@ -7,10 +7,21 @@ import { ReactComponent as Shuffle } from '../../../assets/img/icon/shuffle.svg'
 import { ReactComponent as Pause } from '../../../assets/img/icon/pause.svg';
 import styles from '../player.module.css';
 
-function PlayerControls({ isPlaying, togglePlay, handleRepeat }) {
+function PlayerControls({
+  isPlaying,
+  togglePlay,
+  handleRepeat,
+  loopClick,
+  notImplementedButton,
+}) {
   return (
     <div className={styles.controls}>
-      <div className={`${styles['btn-prev']} _btn-icon`}>
+      <div
+        className={`${styles['btn-prev']} _btn-icon`}
+        onClick={notImplementedButton}
+        role="button"
+        tabIndex={0}
+      >
         <svg className={styles['btn-prev-svg']} alt="prev">
           <Prev />
         </svg>
@@ -31,7 +42,12 @@ function PlayerControls({ isPlaying, togglePlay, handleRepeat }) {
           </svg>
         )}
       </div>
-      <div className={`${styles['btn-next']} _btn-icon`}>
+      <div
+        className={`${styles['btn-next']} _btn-icon`}
+        onClick={notImplementedButton}
+        role="button"
+        tabIndex={0}
+      >
         <svg className={styles['btn-next-svg']} alt="next">
           <Next />
         </svg>
@@ -43,10 +59,18 @@ function PlayerControls({ isPlaying, togglePlay, handleRepeat }) {
         tabIndex={0}
       >
         <svg className={styles['btn-repeat-svg']} alt="repeat">
-          <Repeat />
+          <Repeat
+            fill={loopClick ? '#fff' : '#696969'}
+            stroke={loopClick ? '#fff' : '#696969'}
+          />
         </svg>
       </div>
-      <div className={`${styles['btn-shuffle']} _btn-icon`}>
+      <div
+        className={`${styles['btn-shuffle']} _btn-icon`}
+        onClick={notImplementedButton}
+        role="button"
+        tabIndex={0}
+      >
         <svg className={styles['btn-shuffle-svg']} alt="shuffle">
           <Shuffle />
         </svg>
