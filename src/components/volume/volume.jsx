@@ -5,9 +5,6 @@ import { ReactComponent as VolumeSvg } from '../../assets/img/icon/volume.svg';
 import barStyles from '../bar/bar.module.css';
 
 function Volume({ setVolume }) {
-  const getVolume = (volumeData) => {
-    setVolume(volumeData);
-  };
   return (
     <div className={`${barStyles['volume-block']} volume`}>
       <div className={styles.content}>
@@ -22,7 +19,7 @@ function Volume({ setVolume }) {
             type="range"
             name="range"
             onChange={(e) => {
-              getVolume(e.target.value);
+              setVolume(e.target.value);
             }}
           />
         </div>

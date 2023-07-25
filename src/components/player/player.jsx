@@ -6,7 +6,7 @@ import TrackPlay from '../track-play/track-play';
 import barStyles from '../bar/bar.module.css';
 
 function Player({ loading, playTrack, volume }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [loopClick, setLoopClick] = useState(false);
 
   const audioRef = useRef(null);
@@ -34,7 +34,7 @@ function Player({ loading, playTrack, volume }) {
 
   return (
     <div className={`${barStyles.player} player`}>
-      <audio controls src={`${playTrack?.track_file}`} ref={audioRef}>
+      <audio controls autoPlay src={`${playTrack?.track_file}`} ref={audioRef}>
         <track kind="captions" />
       </audio>
       <PlayerControls

@@ -9,6 +9,9 @@ function BarContent({ loading, playTrack }) {
 
   return (
     <div className={styles.content}>
+      <p className={styles['time-duration']}>
+        {`${0} / ${playTrack?.duration_in_seconds}`}
+      </p>
       <input type="range" />
       <div className={styles['player-block']}>
         <Player loading={loading} playTrack={playTrack} volume={volume} />
