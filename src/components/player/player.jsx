@@ -11,17 +11,12 @@ function Player({
   volume,
   setCurrentTime,
   setDuration,
-  setData,
-  data,
+  currentTimeUser,
 }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [loopClick, setLoopClick] = useState(false);
 
   const audioRef = useRef(null);
-
-  const timeUpdate = () => {
-    setCurrentTime(audioRef.current.currentTime);
-  };
 
   const handleStart = () => {
     audioRef.current.play();
@@ -43,17 +38,22 @@ function Player({
 
   useEffect(() => {
     setDuration(audioRef.current.duration);
+  });
+
+  useEffect(() => {
+    audioRef.current.currentTime = currentTimeUser;
+  }, [currentTimeUser]);
+
+  useEffect(() => {
     audioRef.current.volume = volume / 100;
     audioRef.current.loop = loopClick;
-    if (data) {
-      audioRef.current.currentTime = data;
-      setData(0);
-    }
-
-    audioRef.current.addEventListener('timeupdate', () => {
-      timeUpdate();
-    });
   });
+
+  useEffect(() => {
+    audioRef.current.addEventListener('timeupdate', () => {
+      setCurrentTime(audioRef.current.currentTime);
+    });
+  }, [audioRef.current?.currentTime]);
 
   const togglePlay = isPlaying ? handlePause : handleStart;
 

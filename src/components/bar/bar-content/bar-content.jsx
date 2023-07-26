@@ -10,7 +10,7 @@ function BarContent({ loading, playTrack }) {
   const [volume, setVolume] = useState(50);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [data, setData] = useState(0);
+  const [currentTimeUser, setCurrentTimeUser] = useState(0);
 
   return (
     <div className={styles.content}>
@@ -24,7 +24,7 @@ function BarContent({ loading, playTrack }) {
         currentTime={currentTime}
         duration={duration}
         setCurrentTime={setCurrentTime}
-        setData={setData}
+        setCurrentTimeUser={setCurrentTimeUser}
       />
 
       <div className={styles['player-block']}>
@@ -34,8 +34,8 @@ function BarContent({ loading, playTrack }) {
           volume={volume}
           setCurrentTime={setCurrentTime}
           setDuration={setDuration}
-          data={data}
-          setData={setData}
+          currentTime={currentTime}
+          currentTimeUser={currentTimeUser}
         />
 
         <Volume setVolume={setVolume} />
