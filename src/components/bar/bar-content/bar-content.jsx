@@ -1,17 +1,44 @@
+import { useState } from 'react';
+import { secondsToTime } from '../../../consts/helpers';
+
 import Player from '../../player/player';
 import Volume from '../../volume/volume';
+import ProgressBar from '../../progress-bar/progress-bar';
 import styles from '../bar.module.css';
 
 function BarContent({ loading, playTrack }) {
+  const [volume, setVolume] = useState(50);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTimeUser, setCurrentTimeUser] = useState(0);
+
   return (
     <div className={styles.content}>
-      <audio controls src={`${playTrack?.track_file}`}>
-        <track kind="captions" />
-      </audio>
-      <div className={styles['player-progress']} />
+      <p className={styles['time-duration']}>
+        {`${secondsToTime(Math.floor(currentTime))} / ${secondsToTime(
+          Math.floor(duration)
+        )}`}
+      </p>
+
+      <ProgressBar
+        currentTime={currentTime}
+        duration={duration}
+        setCurrentTime={setCurrentTime}
+        setCurrentTimeUser={setCurrentTimeUser}
+      />
+
       <div className={styles['player-block']}>
-        <Player loading={loading} playTrack={playTrack} />
-        <Volume />
+        <Player
+          loading={loading}
+          playTrack={playTrack}
+          volume={volume}
+          setCurrentTime={setCurrentTime}
+          setDuration={setDuration}
+          currentTime={currentTime}
+          currentTimeUser={currentTimeUser}
+        />
+
+        <Volume setVolume={setVolume} />
       </div>
     </div>
   );

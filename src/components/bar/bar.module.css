@@ -14,6 +14,12 @@
   visibility: hidden;
 }
 
+.time-duration {
+  padding-right: 5px;
+  width: 100%;
+  text-align: right;
+}
+
 .content {
   display: flex;
   flex-direction: column;

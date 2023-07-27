@@ -4,7 +4,7 @@ import styles from './volume.module.css';
 import { ReactComponent as VolumeSvg } from '../../assets/img/icon/volume.svg';
 import barStyles from '../bar/bar.module.css';
 
-function Volume() {
+function Volume({ setVolume }) {
   return (
     <div className={`${barStyles['volume-block']} volume`}>
       <div className={styles.content}>
@@ -18,6 +18,9 @@ function Volume() {
             className={`${styles['progress-line']} _btn`}
             type="range"
             name="range"
+            onChange={(e) => {
+              setVolume(e.target.value);
+            }}
           />
         </div>
       </div>
