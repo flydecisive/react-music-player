@@ -47,7 +47,7 @@ function Player({
   useEffect(() => {
     audioRef.current.volume = volume / 100;
     audioRef.current.loop = loopClick;
-  });
+  }, [loopClick, volume]);
 
   useEffect(() => {
     audioRef.current.addEventListener('timeupdate', () => {
