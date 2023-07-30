@@ -26,7 +26,6 @@ function Main({ tracks, errorMessage, loading }) {
       <Nav />
       <Centerblock
         loading={loading}
-        tracks={tracks}
         errorMessage={errorMessage}
         setChoosedTrack={setChoosedTrack}
       />

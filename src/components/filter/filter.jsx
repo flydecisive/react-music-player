@@ -3,6 +3,7 @@ import styles from './filter.module.css';
 import centerblockFilterStyles from '../centerblock/centerblock.module.css';
 import { createFilterList } from '../../consts/helpers';
 import FilterButton from './filter-button/filter-button';
+import { useTracksContext } from '../../contexts/tracks';
 
 let state = {
   0: false,
@@ -26,7 +27,9 @@ const changeState = (filterState, id) => {
   return newState;
 };
 
-function Filter({ filterElements }) {
+function Filter() {
+  const filterElements = useTracksContext();
+
   const [dropdownList, setDropdownList] = useState();
   const [buttonsState, setButtonsState] = useState();
 
