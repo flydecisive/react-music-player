@@ -65,7 +65,7 @@ export default function ProgressBar({
     <StyledProgressInput
       type="range"
       min={0}
-      max={duration}
+      max={duration || 0}
       value={currentTime}
       step={0.01}
       onChange={(event) => {

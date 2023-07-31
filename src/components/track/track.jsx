@@ -1,7 +1,6 @@
 // компонент для трэка
 
 import styles from './track.module.css';
-import playlistStyles from '../playlist/playlist.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
 import { secondsToTime } from '../../consts/helpers';
@@ -9,7 +8,7 @@ import Skeleton from '../skeleton/skeleton';
 
 function Track({ item, loading, setChoosedTrack }) {
   return (
-    <div className={`${playlistStyles.track} track`}>
+    <div className="track">
       {loading ? (
         <div className={styles.wrapper}>
           <div className={styles.title}>

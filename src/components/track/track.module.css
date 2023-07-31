@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* width: 447px; */
   grid-column: 1 / 6;
   gap: 17px;
 }
@@ -48,7 +47,6 @@
 }
 
 .author {
-  /* width: 321px; */
   grid-column: 6 / 12;
   display: flex;
   justify-content: flex-start;
@@ -65,7 +63,6 @@
 }
 
 .album {
-  /* width: 245px; */
   grid-column: 12 / 16;
 }
 
