@@ -1,7 +1,10 @@
 import PlaylistItem from './playlist-item/playlist-item';
 import contentStyles from '../centerblock/centerblock-content/content.module.css';
+import { useTracksContext } from '../../contexts/tracks';
 
-function Playlist({ tracks, loading, errorMessage, setChoosedTrack }) {
+function Playlist({ loading, errorMessage, setChoosedTrack }) {
+  const tracks = useTracksContext();
+
   const elements = tracks?.map((item) => (
     <PlaylistItem
       item={item}

@@ -38,10 +38,3 @@ export const createFilterList = (filterElements, id) => {
 
   return filteredResult;
 };
-
-export const getCookie = () => {
-  const { cookie } = document;
-  const symbol = cookie.indexOf('=') + 1;
-  const value = cookie.slice(symbol);
-  return value;
-};
