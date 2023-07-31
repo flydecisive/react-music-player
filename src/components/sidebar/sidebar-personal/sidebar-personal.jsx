@@ -14,6 +14,9 @@ function SidebarPersonal() {
 
   const { toggleLogout } = useLoginContext();
   const { user } = useUserContext();
+  let userName = user.username;
+  const index = userName.lastIndexOf('@');
+  userName = userName.substring(0, index);
 
   useEffect(() => {
     if (logout === true) {
@@ -24,7 +27,7 @@ function SidebarPersonal() {
 
   return (
     <div className={styles.personal}>
-      <p className={styles['personal-name']}>{user.username}</p>
+      <p className={styles['personal-name']}>{userName}</p>
       <button
         type="submit"
         className={sidebarPersonalStyles.button}
