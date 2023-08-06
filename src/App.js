@@ -1,11 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import AppRoutes from './routes';
 import styles from './App.module.css';
 import { getTracks, registerUser } from './api';
 import { TracksContext } from './contexts/tracks';
 import { LoginContext } from './contexts/login';
 import { UserContext } from './contexts/user';
+import { IsPlayingContext } from './contexts/isPlaying';
+
+import { setAllTracks, setTracksIds } from './store/actions/creators/tracks';
 
 function App() {
   const [auth, setAuth] = useState(localStorage.getItem('login'));
@@ -13,6 +18,9 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const dispatch = useDispatch();
 
   const toggleLogin = () => {
     if (!auth) {
@@ -35,6 +43,8 @@ function App() {
     try {
       const tracksData = await getTracks();
       setTracks(tracksData);
+      dispatch(setAllTracks(tracksData));
+      dispatch(setTracksIds(tracksData.map((trackData) => trackData.id)));
       setLoading(false);
     } catch (error) {
       setErrorMessage(
@@ -45,34 +55,31 @@ function App() {
     }
   };
 
+  const toggleIsPlaying = (value) => {
+    setIsPlaying(value);
+  };
+
   useEffect(() => {
     getAllTracks();
   }, []);
 
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   console.log(user);
-  //   if (auth) {
-  //     localStorage.setItem('auth', auth);
-  //   }
-  // }, [auth]);
-
   return (
     <div className={styles.App}>
-      <TracksContext.Provider value={tracks}>
-        <LoginContext.Provider value={{ auth, toggleLogin, toggleLogout }}>
-          <UserContext.Provider value={{ user, setCurrentUser }}>
-            <AppRoutes
-              auth={auth}
-              tracks={tracks}
-              errorMessage={errorMessage}
-              loading={loading}
-              registerUser={registerUser}
-              setAuth={setAuth}
-            />
-          </UserContext.Provider>
-        </LoginContext.Provider>
-      </TracksContext.Provider>
+      <IsPlayingContext.Provider value={{ isPlaying, toggleIsPlaying }}>
+        <TracksContext.Provider value={tracks}>
+          <LoginContext.Provider value={{ auth, toggleLogin, toggleLogout }}>
+            <UserContext.Provider value={{ user, setCurrentUser }}>
+              <AppRoutes
+                auth={auth}
+                errorMessage={errorMessage}
+                loading={loading}
+                registerUser={registerUser}
+                setAuth={setAuth}
+              />
+            </UserContext.Provider>
+          </LoginContext.Provider>
+        </TracksContext.Provider>
+      </IsPlayingContext.Provider>
     </div>
   );
 }

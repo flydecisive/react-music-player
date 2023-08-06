@@ -12,13 +12,16 @@ function PlayerControls({
   togglePlay,
   handleRepeat,
   loopClick,
-  notImplementedButton,
+  toggleShuffle,
+  toggleNext,
+  togglePrev,
+  shuffleClick,
 }) {
   return (
     <div className={styles.controls}>
       <div
         className={`${styles['btn-prev']} _btn-icon`}
-        onClick={notImplementedButton}
+        onClick={togglePrev}
         role="button"
         tabIndex={0}
       >
@@ -44,7 +47,7 @@ function PlayerControls({
       </div>
       <div
         className={`${styles['btn-next']} _btn-icon`}
-        onClick={notImplementedButton}
+        onClick={toggleNext}
         role="button"
         tabIndex={0}
       >
@@ -67,12 +70,15 @@ function PlayerControls({
       </div>
       <div
         className={`${styles['btn-shuffle']} _btn-icon`}
-        onClick={notImplementedButton}
+        onClick={toggleShuffle}
         role="button"
         tabIndex={0}
       >
         <svg className={styles['btn-shuffle-svg']} alt="shuffle">
-          <Shuffle />
+          <Shuffle
+            fill={shuffleClick ? '#fff' : '#696969'}
+            stroke={shuffleClick ? '#fff' : '#696969'}
+          />
         </svg>
       </div>
     </div>

@@ -1,12 +1,33 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
-
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
+import Dot from '../dot/dot';
+import { playTrackSelector } from '../../store/selectors/tracks';
+import { useIsPlayingContext } from '../../contexts/isPlaying';
 
-function Track({ item, loading, setChoosedTrack }) {
+function Track({ item, loading, setChoosedTrack, id }) {
+  const [toggleImage, setToggleImage] = useState(false);
+  const playedTrack = useSelector(playTrackSelector);
+  const { isPlaying } = useIsPlayingContext();
+
+  // useEffect(() => {
+  //   console.log(isPlaying);
+  // }, [isPlaying]);
+
+  useEffect(() => {
+    if (id === playedTrack.id) {
+      setToggleImage(true);
+    } else {
+      setToggleImage(false);
+    }
+  }, [playedTrack]);
+
   return (
     <div className="track">
       {loading ? (
@@ -28,16 +49,22 @@ function Track({ item, loading, setChoosedTrack }) {
       ) : (
         <div
           className={styles.wrapper}
-          onClick={() => setChoosedTrack(item.id)}
+          onClick={() => {
+            setChoosedTrack(item.id);
+          }}
           role="button"
           tabIndex={0}
           onKeyDown={() => setChoosedTrack(item.id)}
         >
           <div className={styles.title}>
             <div className={styles['title-image']}>
-              <svg className={styles['title-svg']} alt="music">
-                <Note />
-              </svg>
+              {toggleImage ? (
+                <Dot isPlaying={isPlaying} />
+              ) : (
+                <svg className={styles['title-svg']} alt="music">
+                  <Note />
+                </svg>
+              )}
             </div>
             <div className="track__title-text">
               <p className={styles['title-link']}>

@@ -1,7 +1,7 @@
 import styles from './dropdown.module.css';
 
 function Dropdown({ dropdownList }) {
-  const elements = dropdownList?.map((item) => <li>{item}</li>);
+  const elements = dropdownList?.map((item) => <li key={item}>{item}</li>);
 
   return (
     <div className={styles.wrapper}>

@@ -1,4 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // блок для проигрывания трэков
+import { useSelector } from 'react-redux';
+import { playTrackSelector } from '../../store/selectors/tracks';
 
 import LikeDis from './like-dis/like-dis';
 import styles from './track-play.module.css';
@@ -6,7 +9,8 @@ import trackPlayStyles from '../player/player.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import Skeleton from '../skeleton/skeleton';
 
-function TrackPlay({ loading, playTrack }) {
+function TrackPlay({ loading }) {
+  const playTrack = useSelector(playTrackSelector);
   return (
     <div className={`${trackPlayStyles['track-play']} track-play`}>
       <div className={styles.contain}>

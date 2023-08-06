@@ -8,7 +8,8 @@ function Playlist({ loading, errorMessage, setChoosedTrack }) {
   const elements = tracks?.map((item) => (
     <PlaylistItem
       item={item}
-      key={item.id}
+      key={item.id || Math.random(5)}
+      id={item.id}
       loading={loading}
       setChoosedTrack={setChoosedTrack}
     />

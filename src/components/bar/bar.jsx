@@ -1,10 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import BarContent from './bar-content/bar-content';
 import './bar.module.css';
 
-function Bar({ loading, barVisible, playTrack }) {
+function Bar({ loading, barVisible }) {
   return (
     <div className={`bar ${barVisible ? 'visible' : 'not-visible'}`}>
-      <BarContent loading={loading} playTrack={playTrack} />
+      <BarContent loading={loading} />
     </div>
   );
 }
