@@ -11,13 +11,10 @@ function Playlist({ loading, errorMessage }) {
           <PlaylistItem
             item={item}
             key={item.id || Math.random(5)}
-            /* id={item.id} */
             loading={loading}
           />
         ))
       : null;
-
-  console.log('🚀 ~ file: playlist.jsx:9 ~ Playlist ~ elements:', elements);
 
   return (
     <div className={`${contentStyles.playlist} playlist`}>
