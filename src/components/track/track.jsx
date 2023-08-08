@@ -1,32 +1,35 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect, useState } from 'react';
 import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
 import Dot from '../dot/dot';
-import { playTrackSelector } from '../../store/selectors/tracks';
+// import { playTrackSelector } from '../../store/selectors/tracks';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
+import { setPlayTrack } from '../../store/actions/creators/tracks';
 
-function Track({ item, loading, setChoosedTrack, id }) {
-  const [toggleImage, setToggleImage] = useState(false);
-  const playedTrack = useSelector(playTrackSelector);
-  const { isPlaying } = useIsPlayingContext();
+function Track({ item, loading /* , id  */ }) {
+  // const [toggleImage, setToggleImage] = useState(false);
+  const dispatch = useDispatch();
+  // const playedTrack = useSelector(playTrackSelector);
+  const playedTrack = useSelector((store) => store.tracks.playTrack);
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
 
   // useEffect(() => {
   //   console.log(isPlaying);
   // }, [isPlaying]);
 
-  useEffect(() => {
-    if (id === playedTrack.id) {
-      setToggleImage(true);
-    } else {
-      setToggleImage(false);
-    }
-  }, [playedTrack]);
+  // useEffect(() => {
+  //   if (id === playedTrack.id) {
+  //     setToggleImage(true);
+  //   } else {
+  //     setToggleImage(false);
+  //   }
+  // }, [playedTrack]);
 
   return (
     <div className="track">
@@ -50,15 +53,19 @@ function Track({ item, loading, setChoosedTrack, id }) {
         <div
           className={styles.wrapper}
           onClick={() => {
-            setChoosedTrack(item.id);
+            dispatch(setPlayTrack(item));
+            toggleIsPlaying(true);
           }}
           role="button"
           tabIndex={0}
-          onKeyDown={() => setChoosedTrack(item.id)}
+          onKeyDown={() => {
+            dispatch(setPlayTrack(item));
+            toggleIsPlaying(true);
+          }}
         >
           <div className={styles.title}>
             <div className={styles['title-image']}>
-              {toggleImage ? (
+              {playedTrack && playedTrack.id === item.id ? (
                 <Dot isPlaying={isPlaying} />
               ) : (
                 <svg className={styles['title-svg']} alt="music">

@@ -8,11 +8,11 @@ import {
   setPlayTrack,
   setTracksIds,
 } from '../../store/actions/creators/tracks';
-import {
-  playTrackSelector,
-  tracksAllSelector,
-  tracksIdsSelector,
-} from '../../store/selectors/tracks';
+// import {
+//   playTrackSelector,
+//   tracksAllSelector,
+//   tracksIdsSelector,
+// } from '../../store/selectors/tracks';
 
 import {
   shuffle,
@@ -32,17 +32,24 @@ function Player({
   setDuration,
   currentTimeUser,
 }) {
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
   const [loopClick, setLoopClick] = useState(false);
   const [shuffleClick, setShuffleClick] = useState(false);
-  const playTrack = useSelector(playTrackSelector);
-  const allTracks = useSelector(tracksAllSelector);
-  const tracksIds = useSelector(tracksIdsSelector);
+  // const playTrack = useSelector(playTrackSelector);
+  const playTrack = useSelector((store) => {
+    if (!store.tracks.playTrack) {
+      return null;
+    }
+    return store.tracks.playTrack;
+  });
+  // const allTracks = useSelector(tracksAllSelector);
+  const allTracks = useSelector((store) => store.tracks.allTracks);
+  // const tracksIds = useSelector(tracksIdsSelector);
+  const tracksIds = useSelector((store) => store.tracks.tracksIds);
   // let playTrack;
   // let allTracks;
   // let tracksIds;
-
-  const { toggleIsPlaying } = useIsPlayingContext();
 
   const dispatch = useDispatch();
 
@@ -50,13 +57,13 @@ function Player({
 
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    // setIsPlaying(true);
     toggleIsPlaying(true);
   };
 
   const handlePause = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    // setIsPlaying(false);
     toggleIsPlaying(false);
   };
 
@@ -77,7 +84,7 @@ function Player({
   };
 
   const toggleNext = () => {
-    setIsPlaying(true);
+    // setIsPlaying(true);
     toggleIsPlaying(true);
     const index = tracksIds.indexOf(playTrack.id);
     let nextId;
@@ -91,7 +98,7 @@ function Player({
   };
 
   const togglePrev = () => {
-    setIsPlaying(true);
+    // setIsPlaying(true);
     toggleIsPlaying(true);
     const index = tracksIds.indexOf(playTrack.id);
     let prevId;
@@ -104,13 +111,13 @@ function Player({
     dispatch(setPlayTrack(findPrevTrackId(prevId, allTracks)));
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     toggleIsPlaying(isPlaying);
-  }, [isPlaying]);
+  }, [isPlaying]); */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setDuration(audioRef.current.duration);
-  });
+  }); */
 
   useEffect(() => {
     audioRef.current.currentTime = currentTimeUser;
@@ -121,11 +128,31 @@ function Player({
     audioRef.current.loop = loopClick;
   }, [loopClick, volume]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     audioRef.current.addEventListener('timeupdate', () => {
       setCurrentTime(audioRef.current.currentTime);
     });
-  }, [audioRef.current?.currentTime]);
+  }, [audioRef.current?.currentTime]); */
+
+  useEffect(() => {
+    const ref = audioRef.current;
+
+    const handleTimeUpdateEvent = () => {
+      if (ref.currentTime && ref.duration) {
+        setCurrentTime(ref.currentTime);
+        setDuration(ref.duration);
+      } else {
+        setCurrentTime(0);
+        setDuration(0);
+      }
+    };
+
+    ref.addEventListener('timeupdate', handleTimeUpdateEvent);
+
+    return () => {
+      ref.removeEventListener('timeupdate', handleTimeUpdateEvent);
+    };
+  }, []);
 
   const togglePlay = isPlaying ? handlePause : handleStart;
 

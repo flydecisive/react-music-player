@@ -8,7 +8,7 @@ import {
 } from '../actions/types/tracks';
 
 const initialTracks = {
-  allTracks: Array(5).fill({}),
+  allTracks: [],
   tracksIds: [],
   playTrack: {},
 };
@@ -17,13 +17,9 @@ function tracksReducer(state = initialTracks, action) {
   switch (action.type) {
     case SET_TRACKS: {
       const { tracks } = action.payload;
-
-      if (state.length !== 0) {
-        return { allTracks: tracks };
-      }
       return {
         ...state,
-        allTracks: [...state.allTracks, tracks],
+        allTracks: tracks,
       };
     }
     case TRACKS_IDS: {
