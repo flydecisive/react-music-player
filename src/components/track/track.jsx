@@ -1,12 +1,36 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
-
+import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect, useState } from 'react';
 import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
+import Dot from '../dot/dot';
+// import { playTrackSelector } from '../../store/selectors/tracks';
+import { useIsPlayingContext } from '../../contexts/isPlaying';
+import { setPlayTrack } from '../../store/actions/creators/tracks';
 
-function Track({ item, loading, setChoosedTrack }) {
+function Track({ item, loading /* , id  */ }) {
+  // const [toggleImage, setToggleImage] = useState(false);
+  const dispatch = useDispatch();
+  // const playedTrack = useSelector(playTrackSelector);
+  const playedTrack = useSelector((store) => store.tracks.playTrack);
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
+
+  // useEffect(() => {
+  //   console.log(isPlaying);
+  // }, [isPlaying]);
+
+  // useEffect(() => {
+  //   if (id === playedTrack.id) {
+  //     setToggleImage(true);
+  //   } else {
+  //     setToggleImage(false);
+  //   }
+  // }, [playedTrack]);
+
   return (
     <div className="track">
       {loading ? (
@@ -28,16 +52,26 @@ function Track({ item, loading, setChoosedTrack }) {
       ) : (
         <div
           className={styles.wrapper}
-          onClick={() => setChoosedTrack(item.id)}
+          onClick={() => {
+            dispatch(setPlayTrack(item));
+            toggleIsPlaying(true);
+          }}
           role="button"
           tabIndex={0}
-          onKeyDown={() => setChoosedTrack(item.id)}
+          onKeyDown={() => {
+            dispatch(setPlayTrack(item));
+            toggleIsPlaying(true);
+          }}
         >
           <div className={styles.title}>
             <div className={styles['title-image']}>
-              <svg className={styles['title-svg']} alt="music">
-                <Note />
-              </svg>
+              {playedTrack && playedTrack.id === item.id ? (
+                <Dot isPlaying={isPlaying} />
+              ) : (
+                <svg className={styles['title-svg']} alt="music">
+                  <Note />
+                </svg>
+              )}
             </div>
             <div className="track__title-text">
               <p className={styles['title-link']}>

@@ -6,7 +6,7 @@ import Volume from '../../volume/volume';
 import ProgressBar from '../../progress-bar/progress-bar';
 import styles from '../bar.module.css';
 
-function BarContent({ loading, playTrack }) {
+function BarContent({ loading }) {
   const [volume, setVolume] = useState(50);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -30,7 +30,6 @@ function BarContent({ loading, playTrack }) {
       <div className={styles['player-block']}>
         <Player
           loading={loading}
-          playTrack={playTrack}
           volume={volume}
           setCurrentTime={setCurrentTime}
           setDuration={setDuration}

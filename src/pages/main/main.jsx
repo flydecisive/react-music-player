@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+
+// import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Nav from '../../components/nav/nav';
 import Centerblock from '../../components/centerblock/centerblock';
 import Sidebar from '../../components/sidebar/sidebar';
@@ -6,31 +9,14 @@ import Footer from '../../components/footer/footer';
 import Bar from '../../components/bar/bar';
 import styles from './main.module.css';
 
-function Main({ tracks, errorMessage, loading }) {
-  const [choosedTrack, setChoosedTrack] = useState();
-  const [barVisible, setBarVisible] = useState(false);
-  const [playTrack, setPlayTrack] = useState();
-
-  useEffect(() => {
-    if (choosedTrack) setBarVisible(true);
-
-    for (let i = 0; i < tracks?.length; i += 1) {
-      if (tracks[i].id === choosedTrack) {
-        setPlayTrack(tracks[i]);
-      }
-    }
-  });
-
+function Main({ errorMessage, loading }) {
+  const playTrack = useSelector((store) => store.tracks.playTrack);
   return (
     <main className={styles.main}>
       <Nav />
-      <Centerblock
-        loading={loading}
-        errorMessage={errorMessage}
-        setChoosedTrack={setChoosedTrack}
-      />
+      <Centerblock loading={loading} errorMessage={errorMessage} />
+      {playTrack ? <Bar loading={loading} /> : null}
       <Sidebar loading={loading} />
-      <Bar loading={loading} barVisible={barVisible} playTrack={playTrack} />
       <Footer />
     </main>
   );

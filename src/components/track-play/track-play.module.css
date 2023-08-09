@@ -40,7 +40,7 @@
 
 .album {
   grid-area: album;
-  min-width: 49px;
+  min-width: 150px;
 }
 
 .album-link {
