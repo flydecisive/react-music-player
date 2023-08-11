@@ -1,9 +1,78 @@
 const path = 'https://painassasin.online';
 
-export async function getTracks() {
-  const response = await fetch(`${path}/catalog/track/all/`);
+// Удалить трек в избранное
+export async function deleteTrackInFavorites(accessToken, trackId) {
+  const response = await fetch(`${path}/catalog/track/${trackId}/favorite`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      Authorization: `Bearer ${accessToken}`,
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
 
-  if (!response.ok) {
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Добавить трек в избранное
+export async function addTrackInFavorites(accessToken, trackId) {
+  const response = await fetch(`${path}/catalog/track/${trackId}/favorite`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Обновить access токен
+export async function getAccessToken(refreshToken) {
+  const response = await fetch(
+    'https://painassasin.online/user/token/refresh/',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        refresh: `${refreshToken}`,
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Запрос токенов
+export async function getToken(login, password) {
+  const response = await fetch(`${path}/user/token/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      email: `${login}`,
+      password: `${password}`,
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+  if (!response.ok && !response.status === '400') {
     throw new Error('Ошибка сервера');
   }
 

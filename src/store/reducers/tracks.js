@@ -1,27 +1,13 @@
 /* eslint-disable default-param-last */
-import {
-  SET_TRACKS,
-  //   SET_CURRENT_TRACK_ID,
-  SET_PLAY_TRACK,
-  //   SET_SHUFFLED_TRACKS_IDS,
-  TRACKS_IDS,
-} from '../actions/types/tracks';
+import { SET_PLAY_TRACK, TRACKS_IDS } from '../actions/types/tracks';
 
 const initialTracks = {
-  allTracks: [],
   tracksIds: [],
   playTrack: {},
 };
 
 function tracksReducer(state = initialTracks, action) {
   switch (action.type) {
-    case SET_TRACKS: {
-      const { tracks } = action.payload;
-      return {
-        ...state,
-        allTracks: tracks,
-      };
-    }
     case TRACKS_IDS: {
       const { tracksIds } = action.payload;
 
@@ -40,7 +26,7 @@ function tracksReducer(state = initialTracks, action) {
     }
 
     default:
-      return state.allTracks;
+      return state;
   }
 }
 

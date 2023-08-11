@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../api';
+import { registerUser, getToken } from '../../api';
 import styles from './register.module.css';
 import blackLogo from '../../assets/img/black-logo.png';
 import { useLoginContext } from '../../contexts/login';
 import { useUserContext } from '../../contexts/user';
+import { useTokenContext } from '../../contexts/token';
 
 function RegisterPage() {
   const [login, setLogin] = useState('');
@@ -16,6 +17,7 @@ function RegisterPage() {
 
   const { toggleLogin } = useLoginContext();
   const { setCurrentUser } = useUserContext();
+  const { setToken } = useTokenContext();
 
   const getRegisterUser = async () => {
     try {
@@ -42,6 +44,9 @@ function RegisterPage() {
       console.log(error.message);
     } finally {
       setDisabled(false);
+      const token = await getToken(login, password);
+      setToken(token);
+      localStorage.setItem('refresh', token.refresh);
     }
   };
 

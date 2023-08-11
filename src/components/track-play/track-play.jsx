@@ -1,17 +1,27 @@
+/* eslint-disable no-return-await */
 /* eslint-disable import/no-extraneous-dependencies */
 // блок для проигрывания трэков
-// import { useSelector } from 'react-redux';
-// import { playTrackSelector } from '../../store/selectors/tracks';
 
 import LikeDis from './like-dis/like-dis';
 import styles from './track-play.module.css';
 import trackPlayStyles from '../player/player.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import Skeleton from '../skeleton/skeleton';
+import { addTrackInFavorites } from '../../api';
+import { useTokenContext } from '../../contexts/token';
+// import { useAddFavoritesTracksMutation } from '../../services/tracks';
 
 function TrackPlay({ loading, playTrack }) {
-  // const playTrack = useSelector(playTrackSelector);
+  const { token } = useTokenContext();
 
+  // const { data } = useAddFavoritesTracksMutation(token.access, playTrack.id);
+  // console.log(data);
+
+  const toggleLike = () => {
+    addTrackInFavorites(token.access, playTrack.id);
+  };
+
+  const toggleDislike = () => {};
   return (
     <div className={`${trackPlayStyles['track-play']} track-play`}>
       <div className={styles.contain}>
@@ -48,7 +58,7 @@ function TrackPlay({ loading, playTrack }) {
         )}
       </div>
 
-      <LikeDis />
+      <LikeDis toggleLike={toggleLike} toggleDislike={toggleDislike} />
     </div>
   );
 }

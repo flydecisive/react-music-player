@@ -4,6 +4,7 @@ import { useTracksContext } from '../../contexts/tracks';
 
 function Playlist({ loading, errorMessage }) {
   const tracks = useTracksContext();
+  // console.log(tracks);
 
   const elements =
     tracks && tracks.length > 0
