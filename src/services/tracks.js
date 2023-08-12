@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// const DATA_TAG =
+// const DATA_TAG = {type: 'Favorites', }
 
 export const tracksApi = createApi({
   reducerPath: 'tracksApi',
@@ -11,25 +11,11 @@ export const tracksApi = createApi({
     getAllTracks: builder.query({
       query: () => '/catalog/track/all/',
     }),
-    getFavoritesTracks: builder.query({
-      query: (token) => ({
-        url: '/catalog/track/favorite/all/',
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-    }),
-    // addFavoritesTracks: builder.mutation({
-    //   query: (token, id) => ({
-    //     url: `/catalog/track/${id}/favorite/`,
-    //     method: 'POST',
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }),
-    // }),
   }),
 });
 
-export const { useGetAllTracksQuery, useGetFavoritesTracksQuery } = tracksApi;
+export const {
+  useGetAllTracksQuery,
+  useGetFavoritesTracksQuery,
+  useAddFavoritesTracksMutation,
+} = tracksApi;

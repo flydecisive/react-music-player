@@ -15,9 +15,6 @@ import {
   findPrevTrackId,
 } from '../../consts/helpers';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
-import { useGetAllTracksQuery } from '../../services/tracks';
-// import { useTokenContext } from '../../contexts/token';
-// import { useAddFavoritesTracksMutation } from '../../services/tracks';
 
 import PlayerControls from './player-controls/player-controls';
 import TrackPlay from '../track-play/track-play';
@@ -32,13 +29,12 @@ function Player({
   currentTime,
 }) {
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
-  const { data } = useGetAllTracksQuery();
+  const currentPlaylist = useSelector((store) => store.tracks.currentPlaylist);
   const dispatch = useDispatch();
   const audioRef = useRef(null);
   const [loopClick, setLoopClick] = useState(false);
   const [shuffleClick, setShuffleClick] = useState(false);
-  // const token = useTokenContext();
-  // console.log(token);
+
   const playTrack = useSelector((store) => {
     if (!store.tracks.playTrack) {
       return null;
@@ -65,12 +61,12 @@ function Player({
 
   const toggleShuffle = () => {
     setShuffleClick(!shuffleClick);
-    let ids = data.map((track) => track.id);
+    let ids = currentPlaylist.map((track) => track.id);
     if (!shuffleClick) {
       ids = shuffle(ids);
       dispatch(setTracksIds(ids));
     } else {
-      ids = data.map((track) => track.id);
+      ids = currentPlaylist.map((track) => track.id);
       dispatch(setTracksIds(ids));
     }
   };
@@ -79,13 +75,13 @@ function Player({
     toggleIsPlaying(true);
     const index = tracksIds.indexOf(playTrack.id);
     let nextId;
-    if (index === data.length - 1) {
-      nextId = tracksIds[data.length - 1];
+    if (index === currentPlaylist.length - 1) {
+      nextId = tracksIds[currentPlaylist.length - 1];
     } else {
       nextId = tracksIds[index + 1];
     }
 
-    dispatch(setPlayTrack(findNextTrackId(nextId, data)));
+    dispatch(setPlayTrack(findNextTrackId(nextId, currentPlaylist)));
   };
 
   const togglePrev = () => {
@@ -98,20 +94,20 @@ function Player({
       prevId = tracksIds[index - 1];
     }
 
-    dispatch(setPlayTrack(findPrevTrackId(prevId, data)));
+    dispatch(setPlayTrack(findPrevTrackId(prevId, currentPlaylist)));
   };
 
   useEffect(() => {
     if (currentTime === audioRef.current.duration && loopClick === false) {
       const index = tracksIds.indexOf(playTrack.id);
       let nextId;
-      if (index === data.length - 1) {
-        nextId = tracksIds[data.length - 1];
+      if (index === currentPlaylist.length - 1) {
+        nextId = tracksIds[currentPlaylist.length - 1];
       } else {
         nextId = tracksIds[index + 1];
       }
 
-      dispatch(setPlayTrack(findNextTrackId(nextId, data)));
+      dispatch(setPlayTrack(findNextTrackId(nextId, currentPlaylist)));
     }
   }, [currentTime]);
 

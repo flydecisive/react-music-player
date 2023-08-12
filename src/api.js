@@ -1,14 +1,28 @@
 const path = 'https://painassasin.online';
 
+// получение избранных треков
+export async function getFavoritesTracks(accessToken) {
+  const response = await fetch(`${path}/catalog/track/favorite/all/`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 // Удалить трек в избранное
 export async function deleteTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${path}/catalog/track/${trackId}/favorite`, {
+  const response = await fetch(`${path}/catalog/track/${trackId}/favorite/`, {
     method: 'DELETE',
-    body: JSON.stringify({
-      Authorization: `Bearer ${accessToken}`,
-    }),
     headers: {
-      'content-type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
@@ -22,7 +36,7 @@ export async function deleteTrackInFavorites(accessToken, trackId) {
 
 // Добавить трек в избранное
 export async function addTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${path}/catalog/track/${trackId}/favorite`, {
+  const response = await fetch(`${path}/catalog/track/${trackId}/favorite/`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -39,18 +53,15 @@ export async function addTrackInFavorites(accessToken, trackId) {
 
 // Обновить access токен
 export async function getAccessToken(refreshToken) {
-  const response = await fetch(
-    'https://painassasin.online/user/token/refresh/',
-    {
-      method: 'POST',
-      body: JSON.stringify({
-        refresh: `${refreshToken}`,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
+  const response = await fetch(`${path}/user/token/refresh/`, {
+    method: 'POST',
+    body: JSON.stringify({
+      refresh: `${refreshToken}`,
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
 
   if (!response.ok && !response.status === '400') {
     throw new Error('Ошибка сервера');

@@ -1,19 +1,35 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
 import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
 import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
+// createFavorites
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
 import Dot from '../dot/dot';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
+// setFavoritesTracks
 import { setPlayTrack } from '../../store/actions/creators/tracks';
+// import { useGetAllTracksQuery } from '../../services/tracks';
 
-function Track({ item, loading /* , id  */ }) {
+function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
   const dispatch = useDispatch();
   const playedTrack = useSelector((store) => store.tracks.playTrack);
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
+  const isLike = likesState[id];
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem('user');
+  //   console.log(user);
+
+  //   if (isLike) {
+  //     console.log(allTracks);
+  //   }
+  // }, [isLike]);
 
   return (
     <div className="track">
@@ -39,12 +55,14 @@ function Track({ item, loading /* , id  */ }) {
           onClick={() => {
             dispatch(setPlayTrack(item));
             toggleIsPlaying(true);
+            setTrackClick(true);
           }}
           role="button"
           tabIndex={0}
           onKeyDown={() => {
             dispatch(setPlayTrack(item));
             toggleIsPlaying(true);
+            setTrackClick(true);
           }}
         >
           <div className={styles.title}>
@@ -69,9 +87,16 @@ function Track({ item, loading /* , id  */ }) {
           <div className={styles.album}>
             <p className={styles['album-link']}>{item.album}</p>
           </div>
-          <div className={styles.time}>
-            <svg className={styles['time-svg']} alt="time">
-              <Like />
+          <div
+            className={styles.time}
+            id={id}
+            onClick={(event) => toggleLike(event)}
+          >
+            <svg className={styles['like-svg']} alt="like">
+              <Like
+                fill={isLike ? '#ad61ff' : 'transparent'}
+                stroke={isLike ? '#ad61ff' : '#696969'}
+              />
             </svg>
             <span className={styles['time-text']}>
               {secondsToTime(item.duration_in_seconds)}
