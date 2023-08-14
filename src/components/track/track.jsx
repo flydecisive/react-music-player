@@ -21,7 +21,6 @@ function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
   const playedTrack = useSelector((store) => store.tracks.playTrack);
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
   const isLike = likesState[id];
-
   // useEffect(() => {
   //   const user = localStorage.getItem('user');
   //   console.log(user);

@@ -10,16 +10,17 @@ import {
   setFavoritesTracks,
 } from '../../store/actions/creators/tracks';
 import { useTokenContext } from '../../contexts/token';
-// getFavoritesTracks
-import {
-  deleteTrackInFavorites,
-  addTrackInFavorites,
-  getFavoritesTracks,
-} from '../../api';
+// deleteTrackInFavorites,
+// addTrackInFavorites,
+// import { deleteTrackInFavorites } from '../../api';
 import { useSwitchPlaylistContext } from '../../contexts/switchPlaylist';
-// import { useGetAllTracksQuery } from '../../services/tracks';
+import {
+  useGetAllTracksQuery,
+  useLikeTrackMutation,
+  useDislikeTrackMutation,
+} from '../../services/tracks';
 
-// import { createFavorites } from '../../consts/helpers';
+import { createFavorites } from '../../consts/helpers';
 
 function Playlist({ loading, errorMessage }) {
   const { token } = useTokenContext();
@@ -30,10 +31,12 @@ function Playlist({ loading, errorMessage }) {
   const likesState = useSelector((store) => store.tracks.likesState);
   const dispatch = useDispatch();
   const initialState = {};
-  // const allTracks = useGetAllTracksQuery().data;
+  const allTracks = useGetAllTracksQuery().data;
   // let allTracks;
-  // const user = localStorage.getItem('user');
+  const user = localStorage.getItem('user');
   const { setSwitchPlaylist } = useSwitchPlaylistContext();
+  const [likeTrigger] = useLikeTrackMutation();
+  const [dislikeTrigger] = useDislikeTrackMutation();
 
   useEffect(() => {
     if (trackClick) {
@@ -52,33 +55,40 @@ function Playlist({ loading, errorMessage }) {
 
   const tracks = useTracksContext();
 
-  const getNewFavoritesTracks = async () => {
-    dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)));
-  };
+  // const getNewFavoritesTracks = async () => {
+  //   dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)));
+  // };
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget;
     const value = likesState[id];
     const newLikesState = { ...likesState };
+    const { access } = token;
 
     if (value) {
       newLikesState[id] = false;
-      await deleteTrackInFavorites(token?.access, id);
-      // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      if (token?.access) {
-        await getNewFavoritesTracks();
-      }
+      // await deleteTrackInFavorites(access, id);
+      // // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
+      // if (token?.access) {
+      //   await getNewFavoritesTracks();
+      // }
+      dislikeTrigger(id, access);
     } else {
       newLikesState[id] = true;
-      await addTrackInFavorites(token?.access, id);
-      // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      if (token?.access) {
-        await getNewFavoritesTracks();
-      }
+      // await addTrackInFavorites(token?.access, id);
+      // // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
+      // if (token?.access) {
+      //   await getNewFavoritesTracks();
+      // }
+      likeTrigger({ id, access });
     }
 
     dispatch(setLikesState(newLikesState));
   };
+
+  useEffect(() => {
+    dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
+  }, [allTracks]);
 
   // useEffect(() => {
   //   dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
