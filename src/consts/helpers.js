@@ -2,6 +2,21 @@ export function strPadLeft(string, pad, length) {
   return (new Array(length + 1).join(pad) + string).slice(-length);
 }
 
+// форматирование даты
+function formatDate(dates) {
+  const newDates = [];
+  dates.forEach((date) => {
+    if (date) {
+      const newDate = date.split('-').reverse().join('.');
+      if (!newDates.includes(newDate)) {
+        newDates.push(newDate);
+      }
+    }
+  });
+
+  return newDates.sort();
+}
+
 export const secondsToTime = (time) => {
   const minutes = Math.floor(time / 60);
   const seconds = time - minutes * 60;
@@ -39,7 +54,7 @@ export const createFilterList = (filterElements, id) => {
       result = filterElements?.map(
         (filterElement) => filterElement.release_date
       );
-      break;
+      return formatDate(result);
     case 2:
       result = filterElements?.map((filterElement) => filterElement.genre);
       break;
