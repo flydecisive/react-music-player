@@ -10,10 +10,6 @@
   visibility: visible;
 }
 
-/* :global(.not-visible) {
-  visibility: hidden;
-} */
-
 .time-duration {
   padding-right: 5px;
   width: 100%;

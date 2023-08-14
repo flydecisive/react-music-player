@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './login.module.css';
-import { authUser } from '../../api';
+import { authUser, getToken } from '../../api';
 import blackLogo from '../../assets/img/black-logo.png';
 import { useLoginContext } from '../../contexts/login';
 import { useUserContext } from '../../contexts/user';
+import { useTokenContext } from '../../contexts/token';
 
 function LoginPage() {
   const [login, setLogin] = useState('');
@@ -15,6 +16,7 @@ function LoginPage() {
 
   const { toggleLogin } = useLoginContext();
   const { setCurrentUser } = useUserContext();
+  const { setToken } = useTokenContext();
 
   const getAuthUser = async () => {
     try {
@@ -34,6 +36,9 @@ function LoginPage() {
       console.log(error.message);
     } finally {
       setDisabled(false);
+      const token = await getToken(login, password);
+      setToken(token);
+      localStorage.setItem('refresh', token.refresh);
     }
   };
 

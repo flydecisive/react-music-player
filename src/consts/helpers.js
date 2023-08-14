@@ -1,4 +1,4 @@
-function strPadLeft(string, pad, length) {
+export function strPadLeft(string, pad, length) {
   return (new Array(length + 1).join(pad) + string).slice(-length);
 }
 
@@ -11,6 +11,22 @@ export const secondsToTime = (time) => {
     2
   )}`;
   return finalTime;
+};
+
+export const createFavorites = (items, currUser) => {
+  const userId = currUser?.id;
+  const favoritesTracks = [];
+  if (items) {
+    items.forEach((item) => {
+      for (let i = 0; i < item.stared_user.length; i += 1) {
+        if (item.stared_user[i].id === userId) {
+          favoritesTracks.push(item);
+        }
+      }
+    });
+  }
+
+  return favoritesTracks;
 };
 
 export const createFilterList = (filterElements, id) => {
