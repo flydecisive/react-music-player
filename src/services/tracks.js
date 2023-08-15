@@ -47,6 +47,9 @@ export const tracksApi = createApi({
       },
       invalidatesTags: [TRACKS_TAG],
     }),
+    getCollectionById: builder.query({
+      query: (id) => `/catalog/selection/${id}/`,
+    }),
   }),
 });
 
@@ -55,4 +58,5 @@ export const {
   useLikeTrackMutation,
   useDislikeTrackMutation,
   useLazyGetFavoritesPlaylistQuery,
+  useLazyGetCollectionByIdQuery,
 } = tracksApi;
