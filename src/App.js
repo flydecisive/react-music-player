@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppRoutes from './routes';
 import styles from './App.module.css';
-// getFavoritesTracks
-import { registerUser, getAccessToken, getFavoritesTracks } from './api';
+import { registerUser, getAccessToken } from './api';
 import { TracksContext } from './contexts/tracks';
 import { LoginContext } from './contexts/login';
 import { UserContext } from './contexts/user';
@@ -20,7 +19,6 @@ import {
   setTracksIds,
   setFavoritesTracks,
   setPlayTrack,
-  setCurrentPlaylist,
 } from './store/actions/creators/tracks';
 
 import Bar from './components/bar/bar';
@@ -35,23 +33,16 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const { error, isLoading } = useGetAllTracksQuery();
-  const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
   const allTracks = useGetAllTracksQuery().data;
   const [playlist, setPlaylist] = useState();
   const playTrack = useSelector((store) => store.tracks.playTrack);
   const currentPlaylist = useSelector((store) => store.tracks.currentPlaylist);
   const dispatch = useDispatch();
-  // const likesState = useSelector((store) => store.tracks.likesState);
   let errorMessage;
 
   if (error) {
     errorMessage = `Не удалось загрузить плейлист, попробуйте позже ${error.status}`;
   }
-
-  // useEffect(() => {
-  //   console.log(createFavorites(allTracks, user));
-  //   // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-  // }, [likesState]);
 
   useEffect(() => {
     if (switchPlaylist) {
@@ -67,34 +58,31 @@ function App() {
     if (!token?.access && refresh) {
       setTokenAfterUnload();
     }
-    const getNewFavoritesTracks = async () => {
-      dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)));
-    };
-
-    if (token?.access) {
-      getNewFavoritesTracks();
-    }
   }, [token]);
 
   useEffect(() => {
-    if (favoritesTracks.length === 0) {
-      dispatch(setCurrentPlaylist(allTracks));
-      setPlaylist(allTracks);
-      dispatch(setTracksIds(allTracks?.map((trackData) => trackData.id)));
-    }
-  }, [favoritesTracks]);
-
-  useEffect(() => {
-    dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-  }, [user]);
-
-  useEffect(() => {
+    dispatch(setTracksIds(allTracks?.map((trackData) => trackData.id)));
     if (allTracks) {
-      dispatch(setTracksIds(allTracks.map((trackData) => trackData.id)));
+      dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
+      setPlaylist(allTracks);
     }
-    dispatch(setCurrentPlaylist(allTracks));
-    setPlaylist(allTracks);
-  }, [allTracks]);
+  }, [user, allTracks]);
+
+  // useEffect(() => {
+  //   if (favoritesTracks.length === 0) {
+  //     dispatch(setCurrentPlaylist(allTracks));
+  //     setPlaylist(allTracks);
+  //     dispatch(setTracksIds(allTracks?.map((trackData) => trackData.id)));
+  //   }
+  // }, [favoritesTracks]);
+
+  // useEffect(() => {
+  //   if (allTracks) {
+  //     dispatch(setTracksIds(allTracks.map((trackData) => trackData.id)));
+  //   }
+  //   dispatch(setCurrentPlaylist(allTracks));
+  //   setPlaylist(allTracks);
+  // }, [allTracks]);
 
   useEffect(() => {
     if (auth && refresh) {

@@ -22,23 +22,29 @@ export const tracksApi = createApi({
       providesTags: () => [TRACKS_TAG],
     }),
     likeTrack: builder.mutation({
-      query: ({ id, token }) => ({
-        url: `/catalog/track/${id}/favorite/`,
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: (args) => {
+        const { id, token } = args;
+        return {
+          url: `/catalog/track/${id}/favorite/`,
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
       invalidatesTags: [TRACKS_TAG],
     }),
     dislikeTrack: builder.mutation({
-      query: (id, token) => ({
-        url: `/catalog/track/${id}/favorite/`,
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: (args) => {
+        const { id, token } = args;
+        return {
+          url: `/catalog/track/${id}/favorite/`,
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
       invalidatesTags: [TRACKS_TAG],
     }),
   }),

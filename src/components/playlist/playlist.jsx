@@ -3,40 +3,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PlaylistItem from './playlist-item/playlist-item';
 import contentStyles from '../centerblock/centerblock-content/content.module.css';
-import { useTracksContext } from '../../contexts/tracks';
-// setFavoritesTracks
 import {
   setLikesState,
-  setFavoritesTracks,
+  setCurrentPlaylist,
 } from '../../store/actions/creators/tracks';
 import { useTokenContext } from '../../contexts/token';
-// deleteTrackInFavorites,
-// addTrackInFavorites,
-// import { deleteTrackInFavorites } from '../../api';
 import { useSwitchPlaylistContext } from '../../contexts/switchPlaylist';
 import {
   useGetAllTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,
 } from '../../services/tracks';
-
-import { createFavorites } from '../../consts/helpers';
+import { useTracksContext } from '../../contexts/tracks';
 
 function Playlist({ loading, errorMessage }) {
   const { token } = useTokenContext();
   const [trackClick, setTrackClick] = useState(false);
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
-  const favoritesIds = favoritesTracks.map((favoriteTrack) => favoriteTrack.id);
+  const favoritesIds = favoritesTracks?.map(
+    (favoriteTrack) => favoriteTrack.id
+  );
   const tracksIds = useSelector((store) => store.tracks.tracksIds);
   const likesState = useSelector((store) => store.tracks.likesState);
   const dispatch = useDispatch();
   const initialState = {};
   const allTracks = useGetAllTracksQuery().data;
-  // let allTracks;
-  const user = localStorage.getItem('user');
   const { setSwitchPlaylist } = useSwitchPlaylistContext();
   const [likeTrigger] = useLikeTrackMutation();
   const [dislikeTrigger] = useDislikeTrackMutation();
+  const tracks = useTracksContext();
 
   useEffect(() => {
     if (trackClick) {
@@ -45,58 +40,26 @@ function Playlist({ loading, errorMessage }) {
     } else {
       setTrackClick(false);
     }
+    dispatch(setCurrentPlaylist(allTracks));
   }, [trackClick]);
-
-  // if (trackClick) {
-  //   allTracks = useGetAllTracksQuery().data;
-  // }
-
-  // console.log(allTracks);
-
-  const tracks = useTracksContext();
-
-  // const getNewFavoritesTracks = async () => {
-  //   dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)));
-  // };
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget;
-    const value = likesState[id];
+    const trackState = likesState[id];
     const newLikesState = { ...likesState };
     const { access } = token;
+    const args = { id, token: access };
 
-    if (value) {
+    if (trackState) {
       newLikesState[id] = false;
-      // await deleteTrackInFavorites(access, id);
-      // // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      // if (token?.access) {
-      //   await getNewFavoritesTracks();
-      // }
-      dislikeTrigger(id, access);
+      await dislikeTrigger(args);
     } else {
       newLikesState[id] = true;
-      // await addTrackInFavorites(token?.access, id);
-      // // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      // if (token?.access) {
-      //   await getNewFavoritesTracks();
-      // }
-      likeTrigger({ id, access });
+      await likeTrigger(args);
     }
 
     dispatch(setLikesState(newLikesState));
   };
-
-  useEffect(() => {
-    dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-  }, [allTracks]);
-
-  // useEffect(() => {
-  //   dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-  // }, [likesState]);
-
-  // useEffect(() => {
-  //   console.log('reuse');
-  // }, [allTracks]);
 
   useEffect(() => {
     if (tracksIds) {
