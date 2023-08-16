@@ -8,7 +8,6 @@ import {
   setPlayTrack,
   setTracksIds,
 } from '../../store/actions/creators/tracks';
-
 import {
   shuffle,
   findNextTrackId,

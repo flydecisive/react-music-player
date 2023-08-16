@@ -3,13 +3,34 @@
 // блок для проигрывания трэков
 
 // import { useState } from 'react';
-// import LikeDis from './like-dis/like-dis';
+// import { useSelector } from 'react-redux';
+// import { useEffect, useState } from 'react';
+import LikeDis from './like-dis/like-dis';
 import styles from './track-play.module.css';
 import trackPlayStyles from '../player/player.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import Skeleton from '../skeleton/skeleton';
 
+// если лайк стэйт то сетить трек в избранное, если нет, то удалять
+
 function TrackPlay({ loading, playTrack }) {
+  const { id } = playTrack;
+  // const [likeState, setLikeState] = useState();
+
+  // useEffect(() => {
+  //   const { id } = playTrack;
+  //   if (likesState[id]) {
+  //     setLikeState(true);
+  //   }
+  // }, [likesState]);
+
+  // useEffect(() => {
+  //   const { id } = playTrack;
+  //   if (likesState[id]) {
+  //     setLikeState(true);
+  //   }
+  // }, []);
+
   return (
     <div className={`${trackPlayStyles['track-play']} track-play`}>
       <div className={styles.contain}>
@@ -46,7 +67,7 @@ function TrackPlay({ loading, playTrack }) {
         )}
       </div>
 
-      {/* <LikeDis toggleLike={toggleLike} toggleDislike={toggleDislike} /> */}
+      <LikeDis id={id} /* setLikeState={setLikeState} */ />
     </div>
   );
 }

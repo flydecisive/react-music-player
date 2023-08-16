@@ -3,32 +3,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
 import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect } from 'react';
 import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
-// createFavorites
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
 import Dot from '../dot/dot';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
-// setFavoritesTracks
 import { setPlayTrack } from '../../store/actions/creators/tracks';
-// import { useGetAllTracksQuery } from '../../services/tracks';
 
 function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
   const dispatch = useDispatch();
   const playedTrack = useSelector((store) => store.tracks.playTrack);
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
   const isLike = likesState[id];
-  // useEffect(() => {
-  //   const user = localStorage.getItem('user');
-  //   console.log(user);
-
-  //   if (isLike) {
-  //     console.log(allTracks);
-  //   }
-  // }, [isLike]);
 
   return (
     <div className="track">
