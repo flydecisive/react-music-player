@@ -8,7 +8,7 @@ function CenterblockContent({ loading, errorMessage }) {
   const playTrack = useSelector((store) => store.tracks.playTrack);
   const location = window.location.href;
   let maxHeight;
-  if (!playTrack.id) {
+  if (!playTrack?.id) {
     if (location.includes('favorites') || location.includes('category')) {
       maxHeight = '77vh';
     } else {
@@ -16,7 +16,7 @@ function CenterblockContent({ loading, errorMessage }) {
     }
   }
 
-  if (playTrack.id) {
+  if (playTrack?.id) {
     if (location.includes('favorites') || location.includes('category')) {
       maxHeight = '64vh';
     } else {

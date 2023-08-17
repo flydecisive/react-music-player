@@ -16,7 +16,7 @@ export const StyledSvg = styled.svg`
   fill: transparent;
 `;
 
-export const StyledText = styled.input`
+export const StyledInput = styled.input`
   flex-grow: 100;
   background-color: transparent;
   border: none;

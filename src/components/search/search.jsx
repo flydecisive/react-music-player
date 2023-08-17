@@ -2,7 +2,7 @@
 
 import { ReactComponent as SearchIcon } from '../../assets/img/icon/search.svg';
 import { useThemeContext } from '../../contexts/theme';
-import { StyledSearch, StyledText, StyledSvg } from './search';
+import { StyledSearch, StyledInput, StyledSvg } from './search';
 
 function Search() {
   const { theme } = useThemeContext();
@@ -11,7 +11,7 @@ function Search() {
       <StyledSvg>
         <SearchIcon stroke={theme ? '#000' : '#fff'} />
       </StyledSvg>
-      <StyledText
+      <StyledInput
         theme={{ theme }}
         type="search"
         placeholder="Поиск"

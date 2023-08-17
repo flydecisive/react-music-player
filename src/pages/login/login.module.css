@@ -57,6 +57,11 @@
   padding-bottom: 8px;
 }
 
+.input:focus {
+  outline: none;
+  color: #000;
+}
+
 .button {
   border-radius: 6px;
   width: 278px;
