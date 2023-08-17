@@ -4,7 +4,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import styles from '../track-play.module.css';
+import styles from './like-dis.module.css';
 import { ReactComponent as Like } from '../../../assets/img/icon/like.svg';
 import { ReactComponent as Dislike } from '../../../assets/img/icon/dislike.svg';
 import { setLikesState } from '../../../store/actions/creators/tracks';
@@ -48,7 +48,7 @@ function LikeDis({ id }) {
 
   return (
     <div className={styles['like-dis']}>
-      <div className={`${styles.like} _btn-icon`} onClick={toggleLike}>
+      <div className={`${styles.like} _like-icon`} onClick={toggleLike}>
         <svg className={styles['like-svg']} alt="like">
           <Like
             fill={likeButtonState ? '#ad61ff' : 'transparent'}
@@ -56,9 +56,12 @@ function LikeDis({ id }) {
           />
         </svg>
       </div>
-      <div className={`${styles.dislike} _btn-icon`} onClick={toggleDislike}>
+      <div className={`${styles.dislike} _like-icon`} onClick={toggleDislike}>
         <svg className={styles['dislike-svg']} alt="dislike">
-          <Dislike />
+          <Dislike
+            fill={likeButtonState ? 'transparent' : '#ad61ff'}
+            stroke={likeButtonState ? '#696969' : '#ad61ff'}
+          />
         </svg>
       </div>
     </div>

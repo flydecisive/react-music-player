@@ -1,25 +1,10 @@
-.personal {
+.sidebar {
+  max-width: 418px;
+  padding-top: 20px;
   display: flex;
-  flex-direction: row;
+  flex-flow: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: 12px 0 15px 0;
-}
-
-.personal-name {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-  margin-right: 16px;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #313131;
-  border-radius: 50%;
+  grid-column: 9 / 11;
 }
 
 .block {

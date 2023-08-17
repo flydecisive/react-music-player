@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import Nav from '../../components/nav/nav';
+import Nav from '../../components/nav/nav.jsx';
 import styles from './favorites.module.css';
-import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content';
-import Search from '../../components/search/search';
+import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content.jsx';
+import Search from '../../components/search/search.jsx';
 import Sidebar from '../../components/sidebar/sidebar';
 import { TracksContext } from '../../contexts/tracks';
 import {

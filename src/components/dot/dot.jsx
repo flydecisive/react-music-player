@@ -1,10 +1,13 @@
-import styles from './dot.module.css';
+// import styles from './dot.module.css';
+import { StyledWrapper, StyledDot } from './dot';
+import { useThemeContext } from '../../contexts/theme';
 
 function Dot({ isPlaying }) {
+  const { theme } = useThemeContext();
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.dot} data-playing={isPlaying} />
-    </div>
+    <StyledWrapper theme={{ theme }}>
+      <StyledDot data-playing={isPlaying} />
+    </StyledWrapper>
   );
 }
 

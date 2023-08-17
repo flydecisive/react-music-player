@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLazyGetCollectionByIdQuery } from '../../services/tracks';
-import Nav from '../../components/nav/nav';
-import Search from '../../components/search/search';
+import Nav from '../../components/nav/nav.jsx';
+import Search from '../../components/search/search.jsx';
 import Sidebar from '../../components/sidebar/sidebar';
-import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content';
+import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content.jsx';
 import { TracksContext } from '../../contexts/tracks';
 import { useSwitchPlaylistContext } from '../../contexts/switchPlaylist';
 import {

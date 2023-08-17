@@ -1,38 +1,34 @@
-:global(._btn-icon:hover svg) {
+:global(.col01) {
+  grid-column: 1 / 6;
+}
+
+:global(.col02) {
+  grid-column: 6 / 12;
+}
+
+:global(.col03) {
+  grid-column: 12 / 16;
+}
+:global(.col04) {
+  width: 80px;
+  grid-column: 16 / 17;
+  text-align: start;
+}
+
+:global(._like-icon:hover svg) {
   fill: transparent;
   stroke: #acacac;
   cursor: pointer;
 }
 
-:global(._btn-icon:active svg) {
-  fill: #fff;
-  stroke: #ffffff;
-  cursor: pointer;
-}
-
-:global(
-    ._btn-icon:active .track-play__like-svg,
-    ._btn-icon:active .track-play__dislike-svg
-  ) {
-  fill: #696969;
-  stroke: #ffffff;
+:global(._like-icon:active svg) {
+  fill: #ad61ff;
+  stroke: #ad61ff;
   cursor: pointer;
 }
 
 :global(audio) {
   display: none;
-}
-
-:global(._btn-text:active) {
-  border-color: #ad61ff;
-  color: #ad61ff;
-  cursor: pointer;
-}
-
-:global(._btn-text:hover) {
-  border-color: #d9b6ff;
-  color: #d9b6ff;
-  cursor: pointer;
 }
 
 :global(#root) {

@@ -1,5 +1,5 @@
-import Track from '../../track/track';
-import styles from '../playlist.module.css';
+import Track from '../../track/track.jsx';
+import styles from './playlist-item.module.css';
 
 function PlaylistItem({
   item,

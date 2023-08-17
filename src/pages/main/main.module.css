@@ -5,27 +5,3 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
-.nav {
-  width: 244px;
-  background-color: #181818;
-  padding: 20px 0 20px 36px;
-  grid-column: 1 / 1;
-}
-
-.centerblock {
-  width: auto;
-  flex-grow: 3;
-  padding-top: 20px;
-  padding-right: 10px;
-  grid-column: 2 / 9;
-}
-
-.sidebar {
-  max-width: 418px;
-  padding-top: 20px;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  grid-column: 9 / 11;
-}

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import styles from './filter.module.css';
-import centerblockFilterStyles from '../centerblock/centerblock.module.css';
 import { createFilterList } from '../../consts/helpers';
-import FilterButton from './filter-button/filter-button';
+import FilterButton from './filter-button/filter-button.jsx';
 import { useTracksContext } from '../../contexts/tracks';
+import { StyledFilter, StyledTitle } from './filter';
+import { useThemeContext } from '../../contexts/theme';
 
 let state = {
   0: false,
@@ -28,6 +28,7 @@ const changeState = (filterState, id) => {
 };
 
 function Filter() {
+  const { theme } = useThemeContext();
   const filterElements = useTracksContext();
 
   const [dropdownList, setDropdownList] = useState();
@@ -42,8 +43,8 @@ function Filter() {
   };
 
   return (
-    <div className={`${centerblockFilterStyles.filter} filter`}>
-      <div className={styles.title}>Искать по:</div>
+    <StyledFilter>
+      <StyledTitle theme={{ theme }}>Искать по:</StyledTitle>
       <FilterButton
         toggleButton={toggleButton}
         dropdownList={dropdownList}
@@ -65,7 +66,7 @@ function Filter() {
         text="жанру"
         buttonsState={buttonsState}
       />
-    </div>
+    </StyledFilter>
   );
 }
 

@@ -5,7 +5,17 @@ import { ReactComponent as Next } from '../../../assets/img/icon/next.svg';
 import { ReactComponent as Repeat } from '../../../assets/img/icon/repeat.svg';
 import { ReactComponent as Shuffle } from '../../../assets/img/icon/shuffle.svg';
 import { ReactComponent as Pause } from '../../../assets/img/icon/pause.svg';
-import styles from '../player.module.css';
+import {
+  StyledControls,
+  StyledButton,
+  StyledPrevSvg,
+  StyledPlaySvg,
+  StyledNextSvg,
+  StyledRepeatSvg,
+  StyledShuffleSvg,
+  StyledActiveSvg,
+} from './player-controls';
+import { useThemeContext } from '../../../contexts/theme';
 
 function PlayerControls({
   isPlaying,
@@ -17,71 +27,62 @@ function PlayerControls({
   togglePrev,
   shuffleClick,
 }) {
+  const { theme } = useThemeContext();
+
   return (
-    <div className={styles.controls}>
-      <div
-        className={`${styles['btn-prev']} _btn-icon`}
-        onClick={togglePrev}
-        role="button"
-        tabIndex={0}
-      >
-        <svg className={styles['btn-prev-svg']} alt="prev">
+    <StyledControls>
+      <StyledButton onClick={togglePrev} role="button" tabIndex={0}>
+        <StyledPrevSvg theme={{ theme }}>
           <Prev />
-        </svg>
-      </div>
-      <div
-        className={`${styles['btn-play']} _btn-icon`}
-        onClick={togglePlay}
-        tabIndex={0}
-        role="button"
-      >
-        {isPlaying ? (
-          <svg className={styles['btn-play-svg']} alt="play">
-            <Pause />
-          </svg>
-        ) : (
-          <svg className={styles['btn-play-svg']} alt="play">
-            <Play />
-          </svg>
-        )}
-      </div>
-      <div
-        className={`${styles['btn-next']} _btn-icon`}
-        onClick={toggleNext}
-        role="button"
-        tabIndex={0}
-      >
-        <svg className={styles['btn-next-svg']} alt="next">
+        </StyledPrevSvg>
+      </StyledButton>
+
+      <StyledButton onClick={togglePlay} tabIndex={0} role="button">
+        <StyledPlaySvg theme={{ theme }}>
+          {isPlaying ? <Pause /> : <Play />}
+        </StyledPlaySvg>
+      </StyledButton>
+
+      <StyledButton onClick={toggleNext} role="button" tabIndex={0}>
+        <StyledNextSvg theme={{ theme }}>
           <Next />
-        </svg>
-      </div>
-      <div
-        className={`${styles['btn-repeat']} _btn-icon`}
+        </StyledNextSvg>
+      </StyledButton>
+
+      <StyledButton
+        className="_btn-icon"
         onClick={handleRepeat}
         role="button"
         tabIndex={0}
       >
-        <svg className={styles['btn-repeat-svg']} alt="repeat">
-          <Repeat
-            fill={loopClick ? '#fff' : '#696969'}
-            stroke={loopClick ? '#fff' : '#696969'}
-          />
-        </svg>
-      </div>
-      <div
-        className={`${styles['btn-shuffle']} _btn-icon`}
+        {loopClick ? (
+          <StyledActiveSvg loop={{ loopClick }} theme={{ theme }}>
+            <Repeat />
+          </StyledActiveSvg>
+        ) : (
+          <StyledRepeatSvg theme={{ theme }}>
+            <Repeat />
+          </StyledRepeatSvg>
+        )}
+      </StyledButton>
+
+      <StyledButton
+        className="_btn-icon"
         onClick={toggleShuffle}
         role="button"
         tabIndex={0}
       >
-        <svg className={styles['btn-shuffle-svg']} alt="shuffle">
-          <Shuffle
-            fill={shuffleClick ? '#fff' : '#696969'}
-            stroke={shuffleClick ? '#fff' : '#696969'}
-          />
-        </svg>
-      </div>
-    </div>
+        {shuffleClick ? (
+          <StyledActiveSvg theme={{ theme }}>
+            <Shuffle />
+          </StyledActiveSvg>
+        ) : (
+          <StyledShuffleSvg theme={{ theme }}>
+            <Shuffle />
+          </StyledShuffleSvg>
+        )}
+      </StyledButton>
+    </StyledControls>
   );
 }
 

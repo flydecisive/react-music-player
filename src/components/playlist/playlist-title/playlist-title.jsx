@@ -1,19 +1,27 @@
-import styles from './playlist-title.module.css';
-import contentStyles from '../../centerblock/centerblock-content/content.module.css';
 import { ReactComponent as Watch } from '../../../assets/img/icon/watch.svg';
 
+import { StyledTitle, StyledCol, StyledSvg } from './playlist-title';
+import { useThemeContext } from '../../../contexts/theme';
+
 function PlaylistTitle() {
+  const { theme } = useThemeContext();
   return (
-    <div className={`${contentStyles.title} playlist-title`}>
-      <div className={`${styles.col} col01`}>Трек</div>
-      <div className={`${styles.col} col02`}>ИСПОЛНИТЕЛЬ</div>
-      <div className={`${styles.col} col03`}>АЛЬБОМ</div>
-      <div className={`${styles.col} col04`}>
-        <svg className={styles.svg} alt="time">
+    <StyledTitle theme={{ theme }}>
+      <StyledCol theme={{ theme }} className="col01">
+        Трек
+      </StyledCol>
+      <StyledCol theme={{ theme }} className="col02">
+        ИСПОЛНИТЕЛЬ
+      </StyledCol>
+      <StyledCol theme={{ theme }} className="col03">
+        АЛЬБОМ
+      </StyledCol>
+      <StyledCol theme={{ theme }} className="col04">
+        <StyledSvg>
           <Watch />
-        </svg>
-      </div>
-    </div>
+        </StyledSvg>
+      </StyledCol>
+    </StyledTitle>
   );
 }
 

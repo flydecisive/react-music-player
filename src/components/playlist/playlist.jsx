@@ -2,7 +2,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PlaylistItem from './playlist-item/playlist-item';
-import contentStyles from '../centerblock/centerblock-content/content.module.css';
+import StyledPlaylist from './playlist';
+import { useThemeContext } from '../../contexts/theme';
 import {
   setLikesState,
   setCurrentPlaylist,
@@ -17,6 +18,7 @@ import {
 import { useTracksContext } from '../../contexts/tracks';
 
 function Playlist({ loading, errorMessage }) {
+  const { theme } = useThemeContext();
   const { token } = useTokenContext();
   const [trackClick, setTrackClick] = useState(false);
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
@@ -90,9 +92,9 @@ function Playlist({ loading, errorMessage }) {
       : null;
 
   return (
-    <div className={`${contentStyles.playlist} playlist`}>
+    <StyledPlaylist theme={{ theme }}>
       {errorMessage || elements}
-    </div>
+    </StyledPlaylist>
   );
 }
 

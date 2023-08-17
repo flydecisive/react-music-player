@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../sidebar.module.css';
-import sidebarPersonalStyles from './sidebar-personal.module.css';
 import { ReactComponent as Exit } from '../../../assets/img/icon/exit.svg';
 import { useLoginContext } from '../../../contexts/login';
 import { useUserContext } from '../../../contexts/user';
+import { useThemeContext } from '../../../contexts/theme';
+import {
+  StyledPersonal,
+  StyledName,
+  StyledAvatar,
+  StyledButton,
+} from './sidebar-personal';
 
 function SidebarPersonal() {
+  const { theme } = useThemeContext();
   const [logout, setLogout] = useState(false);
   const navigate = useNavigate();
 
@@ -26,20 +32,19 @@ function SidebarPersonal() {
   }, [logout]);
 
   return (
-    <div className={styles.personal}>
-      <p className={styles['personal-name']}>{userName}</p>
-      <button
+    <StyledPersonal>
+      <StyledName theme={{ theme }}>{userName}</StyledName>
+      <StyledButton
         type="submit"
-        className={sidebarPersonalStyles.button}
         onClick={() => {
           setLogout(true);
         }}
       >
-        <svg className={styles.avatar}>
+        <StyledAvatar theme={{ theme }}>
           <Exit />
-        </svg>
-      </button>
-    </div>
+        </StyledAvatar>
+      </StyledButton>
+    </StyledPersonal>
   );
 }
 

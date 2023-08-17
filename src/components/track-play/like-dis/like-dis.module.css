@@ -1,0 +1,29 @@
+.like-dis {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 26%;
+}
+
+.like,
+.dislike {
+  padding: 5px;
+}
+
+.like-svg {
+  width: 18px;
+  height: 16px;
+  fill: transparent;
+  stroke: #696969;
+}
+
+.dislike {
+  margin-left: 28.5px;
+}
+
+.dislike-svg {
+  width: 18px;
+  height: 16px;
+  fill: transparent;
+  stroke: #696969;
+}

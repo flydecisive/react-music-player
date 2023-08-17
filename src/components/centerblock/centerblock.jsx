@@ -1,18 +1,21 @@
 // import { useState, useEffect } from 'react';
-import Search from '../search/search';
-import Filter from '../filter/filter';
-import CenterblockContent from './centerblock-content/centerblock-content';
-import mainCenterblockStyles from '../../pages/main/main.module.css';
-import styles from './centerblock.module.css';
+import Search from '../search/search.jsx';
+import Filter from '../filter/filter.jsx';
+import CenterblockContent from './centerblock-content/centerblock-content.jsx';
+import { useThemeContext } from '../../contexts/theme';
+
+import { StyledCenterblock, StyledHeading } from './centerblock';
 
 function Centerblock({ loading, errorMessage }) {
+  const { theme } = useThemeContext();
+
   return (
-    <div className={`${mainCenterblockStyles.centerblock} centerblock`}>
+    <StyledCenterblock>
       <Search />
-      <h2 className={styles.h2}>Треки</h2>
+      <StyledHeading theme={{ theme }}>Треки</StyledHeading>
       <Filter />
       <CenterblockContent loading={loading} errorMessage={errorMessage} />
-    </div>
+    </StyledCenterblock>
   );
 }
 
