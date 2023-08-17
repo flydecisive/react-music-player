@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 const StyledPlaylist = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   background-clip: content-box;
-  padding-right: 8px;
+  padding-right: 18px;
 
   &::-webkit-scrollbar {
     width: 4px;

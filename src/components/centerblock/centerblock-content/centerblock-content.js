@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const StyledContent = styled.div`
+export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: ${(props) => (props.playlistHeight.id ? '335px' : '440px')};
+  max-height: ${(props) => props.maxHeight};
 `;
 
-export default StyledContent;
+export const StyledText = styled.p`
+  color: ${(props) => (props.theme.theme ? '#000' : '#fff')};
+  margin-top: 20px;
+  fonst-size: 24px;
+`;

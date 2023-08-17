@@ -13,7 +13,7 @@ function PlaylistItem({
       <Track
         item={item}
         loading={loading}
-        id={item.id}
+        // id={item.id}
         toggleLike={toggleLike}
         likesState={likesState}
         setTrackClick={setTrackClick}

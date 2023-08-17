@@ -82,7 +82,7 @@ function Playlist({ loading, errorMessage }) {
       ? tracks.map((item) => (
           <PlaylistItem
             item={item}
-            key={item.id || Math.random(5)}
+            key={item?.id || Math.random(5)}
             loading={loading}
             toggleLike={toggleLike}
             likesState={likesState}

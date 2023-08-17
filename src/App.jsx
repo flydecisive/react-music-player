@@ -5,7 +5,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppRoutes from './routes';
-// import styles from './App.module.css';
 import StyledApp from './App';
 import { registerUser, getAccessToken } from './api';
 import { TracksContext } from './contexts/tracks';
@@ -64,7 +63,7 @@ function App() {
   }, [token]);
 
   useEffect(() => {
-    dispatch(setTracksIds(allTracks?.map((trackData) => trackData.id)));
+    dispatch(setTracksIds(allTracks?.map((trackData) => trackData?.id)));
     if (allTracks) {
       dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
       setPlaylist(allTracks);

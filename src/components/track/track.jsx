@@ -26,17 +26,34 @@ import {
   StyledTimeText,
 } from './track';
 
-function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
+function Track({ item, loading, toggleLike, likesState, setTrackClick }) {
   const { theme } = useThemeContext();
   const dispatch = useDispatch();
   const playedTrack = useSelector((store) => store.tracks.playTrack);
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
-  const isLike = likesState[id];
+  const isLike = likesState[item?.id];
 
-  const trackClick = () => {
-    dispatch(setPlayTrack(item));
-    toggleIsPlaying(true);
-    setTrackClick(true);
+  const defineElement = (e) => {
+    let target;
+    let likeButton;
+    if (e) {
+      target = e.target;
+    }
+
+    if (target) {
+      likeButton = target.closest('svg[id]');
+    }
+
+    return likeButton;
+  };
+
+  const trackClick = (event) => {
+    const excludedButton = defineElement(event);
+    if (!excludedButton) {
+      dispatch(setPlayTrack(item));
+      toggleIsPlaying(true);
+      setTrackClick(true);
+    }
   };
 
   return (
@@ -59,18 +76,18 @@ function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
         </StyledWrapper>
       ) : (
         <StyledWrapper
-          onClick={() => trackClick()}
+          onClick={(e) => {
+            trackClick(e);
+          }}
           role="button"
           tabIndex={0}
-          onKeyDown={() => {
-            dispatch(setPlayTrack(item));
-            toggleIsPlaying(true);
-            setTrackClick(true);
+          onKeyDown={(e) => {
+            trackClick(e);
           }}
         >
           <StyledTitle>
             <StyledTitleImage theme={{ theme }}>
-              {playedTrack && playedTrack.id === item.id ? (
+              {playedTrack && playedTrack?.id === item?.id ? (
                 <Dot isPlaying={isPlaying} />
               ) : (
                 <StyledTitleSvg theme={{ theme }}>
@@ -88,7 +105,7 @@ function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
           </StyledAlbum>
           <StyledTime>
             <StyledLikeSvg
-              id={id}
+              id={item?.id}
               onClick={(event) => toggleLike(event)}
               theme={{ theme }}
               className="_like-icon"
