@@ -90,6 +90,7 @@ function App() {
   const toggleLogout = () => {
     setAuth(false);
     localStorage.clear();
+    localStorage.setItem('theme', theme);
     clearInterval(intervalId);
     dispatch(setPlayTrack(null));
     dispatch(setFavoritesTracks([]));
