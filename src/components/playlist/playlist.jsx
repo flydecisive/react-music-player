@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 // import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -84,68 +85,68 @@ function Playlist({ loading, errorMessage, searchValue, filterValues }) {
     dispatch(setLikesState(initialState));
   }, [favoritesTracks]);
 
-  let list;
-  if (searchValue) {
-    list =
-      tracks && tracks.length > 0
-        ? getSearchingTracks(tracks, searchValue)
-        : null;
-  }
-  if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
-    let filteringTrack;
+  const filterList = () => {
+    let list = tracks;
+    if (searchValue) {
+      list =
+        tracks && tracks.length > 0
+          ? getSearchingTracks(tracks, searchValue)
+          : null;
+    }
+    if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
+      let filteringTrack;
 
-    if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
-      filteringTrack =
+      if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
+        filteringTrack =
+          tracks && tracks.length > 0
+            ? getCombineFilteredTracks(tracks, filterValues)
+            : null;
+      } else if (filterValues.name.length > 0) {
+        filteringTrack =
+          tracks && tracks.length > 0
+            ? getFilteredTracks(tracks, filterValues.name)
+            : null;
+      } else if (filterValues?.genre.length > 0) {
+        filteringTrack =
+          tracks && tracks.length > 0
+            ? getFilteredTracks(tracks, filterValues?.genre)
+            : null;
+      }
+
+      list = filteringTrack;
+    }
+    if (filterValues?.date.length > 0) {
+      list =
         tracks && tracks.length > 0
-          ? getCombineFilteredTracks(tracks, filterValues)
-          : null;
-    } else if (filterValues.name.length > 0) {
-      filteringTrack =
-        tracks && tracks.length > 0
-          ? getFilteredTracks(tracks, filterValues.name)
-          : null;
-    } else if (filterValues?.genre.length > 0) {
-      filteringTrack =
-        tracks && tracks.length > 0
-          ? getFilteredTracks(tracks, filterValues?.genre)
+          ? getFilterByDate(tracks, filterValues.date)
           : null;
     }
 
-    list = filteringTrack;
-  }
-  if (filterValues?.date.length > 0) {
-    list =
-      tracks && tracks.length > 0
-        ? getFilterByDate(tracks, filterValues.date)
-        : null;
-  }
+    return list;
+  };
 
-  if (
-    filterValues.date.length === 0 &&
-    filterValues.name.length === 0 &&
-    filterValues.genre.length === 0 &&
-    !searchValue
-  ) {
-    list = tracks;
-  }
-
-  const elements =
-    list && list.length > 0
-      ? list.map((item) => (
-          <PlaylistItem
-            item={item}
-            key={Math.random(40) || Math.random(5)}
-            loading={loading}
-            toggleLike={toggleLike}
-            likesState={likesState}
-            setTrackClick={setTrackClick}
-          />
-        ))
-      : null;
+  const filteredList = filterList();
 
   return (
     <StyledPlaylist theme={{ theme }}>
-      {errorMessage || elements}
+      {errorMessage || tracks?.length > 0 ? (
+        filteredList?.length > 0 ? (
+          filteredList.map((item) => (
+            <PlaylistItem
+              item={item}
+              key={Math.random(40) || Math.random(5)}
+              loading={loading}
+              toggleLike={toggleLike}
+              likesState={likesState}
+              setTrackClick={setTrackClick}
+            />
+          ))
+        ) : (
+          <h2>Ничего не найдено</h2>
+        )
+      ) : (
+        ''
+      )}
     </StyledPlaylist>
   );
 }
