@@ -1,17 +1,24 @@
-import Dropdown from '../../dropdown/dropdown.jsx';
-import { StyledButton, StyledButtonActive } from './filter-button';
+import { useState } from 'react';
+import { StyledButton, StyledButtonActive } from './date-filter-button';
 import { useThemeContext } from '../../../contexts/theme';
+import Dropdown from '../../dropdown/dropdown.jsx';
 import FilterCounter from '../../filter-counter/filter-counter.jsx';
 
-function FilterButton({
+function DateFilterButton({
   toggleButton,
-  dropdownList,
   text,
   id,
   buttonsState,
   getFilterValue,
-  filterValues,
 }) {
+  const [dateFilterName, setDateFilterName] = useState('default');
+
+  //   console.log(dateFilterName);
+
+  const handleChange = (event) => {
+    setDateFilterName(event.target.value);
+  };
+
   const { theme } = useThemeContext();
   let visible;
   if (buttonsState) {
@@ -30,11 +37,7 @@ function FilterButton({
           onKeyDown={(e) => toggleButton(e)}
         >
           {text}
-          {filterValues.length > 0 ? (
-            <FilterCounter count={filterValues.length} />
-          ) : (
-            ''
-          )}
+          {dateFilterName !== 'default' ? <FilterCounter count={1} /> : ''}
         </StyledButton>
       ) : (
         <StyledButtonActive
@@ -46,11 +49,7 @@ function FilterButton({
           onKeyDown={(e) => toggleButton(e)}
         >
           {text}
-          {filterValues.length > 0 ? (
-            <FilterCounter count={filterValues.length} />
-          ) : (
-            ''
-          )}
+          {dateFilterName !== 'default' ? <FilterCounter count={1} /> : ''}
         </StyledButtonActive>
       )}
 
@@ -58,12 +57,12 @@ function FilterButton({
         <Dropdown
           id={id}
           getFilterValue={getFilterValue}
-          dropdownList={dropdownList}
-          filterValues={filterValues}
+          dateFilterName={dateFilterName}
+          handleChange={handleChange}
         />
       ) : null}
     </div>
   );
 }
 
-export default FilterButton;
+export default DateFilterButton;

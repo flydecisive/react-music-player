@@ -4,8 +4,9 @@ import { ReactComponent as SearchIcon } from '../../assets/img/icon/search.svg';
 import { useThemeContext } from '../../contexts/theme';
 import { StyledSearch, StyledInput, StyledSvg } from './search';
 
-function Search() {
+function Search({ getSearchValue }) {
   const { theme } = useThemeContext();
+
   return (
     <StyledSearch>
       <StyledSvg>
@@ -16,6 +17,7 @@ function Search() {
         type="search"
         placeholder="Поиск"
         name="search"
+        onInput={(event) => getSearchValue(event)}
       />
     </StyledSearch>
   );

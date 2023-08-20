@@ -35,4 +35,9 @@ export const StyledInput = styled.input`
     font-size: 16px;
     line-height: 24px;
   }
+
+  &:focus {
+    outline: none;
+    color: ${(props) => (props.theme.theme ? '#000' : '#ffffff')};
+  }
 `;

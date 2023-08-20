@@ -56,7 +56,10 @@ function Menu() {
             theme={{ theme }}
             role="button"
             tabIndex={0}
-            onClick={() => setTheme(!theme)}
+            onClick={() => {
+              localStorage.setItem('theme', !theme);
+              setTheme(!theme);
+            }}
           >
             {theme ? <LightTheme /> : <DarkTheme />}
           </StyledButton>

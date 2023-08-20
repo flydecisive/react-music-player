@@ -3,19 +3,19 @@ export function strPadLeft(string, pad, length) {
 }
 
 // форматирование даты
-function formatDate(dates) {
-  const newDates = [];
-  dates.forEach((date) => {
-    if (date) {
-      const newDate = date.split('-').reverse().join('.');
-      if (!newDates.includes(newDate)) {
-        newDates.push(newDate);
-      }
-    }
-  });
+// function formatDate(dates) {
+//   const newDates = [];
+//   dates.forEach((date) => {
+//     if (date) {
+//       const newDate = date.split('-').reverse().join('.');
+//       if (!newDates.includes(newDate)) {
+//         newDates.push(newDate);
+//       }
+//     }
+//   });
 
-  return newDates.sort();
-}
+//   return newDates.sort();
+// }
 
 export const secondsToTime = (time) => {
   const minutes = Math.floor(time / 60);
@@ -51,10 +51,8 @@ export const createFilterList = (filterElements, id) => {
       result = filterElements?.map((filterElement) => filterElement.author);
       break;
     case 1:
-      result = filterElements?.map(
-        (filterElement) => filterElement.release_date
-      );
-      return formatDate(result);
+      result = filterElements;
+      return result;
     case 2:
       result = filterElements?.map((filterElement) => filterElement.genre);
       break;

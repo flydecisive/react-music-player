@@ -26,7 +26,7 @@ import Bar from './components/bar/bar.jsx';
 import { createFavorites } from './consts/helpers';
 
 function App() {
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') !== 'false');
   const [auth, setAuth] = useState(localStorage.getItem('login'));
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [token, setToken] = useState();

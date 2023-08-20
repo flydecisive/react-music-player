@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ import {
 } from '../../services/tracks';
 import { useTracksContext } from '../../contexts/tracks';
 
-function Playlist({ loading, errorMessage }) {
+function Playlist({ loading, errorMessage, searchValue, filterValues }) {
   const { theme } = useThemeContext();
   const { token } = useTokenContext();
   const [trackClick, setTrackClick] = useState(false);
@@ -34,6 +35,90 @@ function Playlist({ loading, errorMessage }) {
   const [likeTrigger] = useLikeTrackMutation();
   const [dislikeTrigger] = useDislikeTrackMutation();
   const tracks = useTracksContext();
+
+  // Поиск по плейлисту
+  function getSearchingTracks(arr, value) {
+    const findList = [];
+
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].name.toLowerCase().includes(value)) {
+        findList.push(arr[i]);
+      }
+    }
+
+    return findList;
+  }
+
+  // фильтры плейлиста
+  function getFilteredTracks(arr, values) {
+    const findList = [];
+
+    for (let i = 0; i < values.length; i += 1) {
+      for (let j = 0; j < arr.length; j += 1) {
+        if (arr[j].author.includes(values[i])) {
+          findList.push(arr[j]);
+        } else if (arr[j].genre.includes(values[i])) {
+          findList.push(arr[j]);
+        }
+      }
+    }
+
+    return findList;
+  }
+
+  // Фильтр плейлиста, если одновременно выбран и исполнитель и жанр
+  function getCombineFilteredTracks(arr, values) {
+    const findAuthorsList = getFilteredTracks(arr, values.name);
+    const findList = [];
+
+    for (let i = 0; i < findAuthorsList.length; i += 1) {
+      for (let j = 0; j < values.genre.length; j += 1) {
+        if (findAuthorsList[i].genre.includes(values.genre[j])) {
+          findList.push(findAuthorsList[i]);
+        }
+      }
+    }
+
+    return findList;
+  }
+
+  // Фильтр плейлиста по дате
+  function getFilterByDate(arr, values) {
+    const dates = arr.map((elem) => elem.release_date);
+    const index = dates.indexOf(null);
+    dates.splice(index, 1);
+    const value = values[0];
+    let findList = [];
+
+    if (value === 'default') {
+      findList = arr;
+    } else if (value === 'old') {
+      const tracksOldToNew = dates.sort((a, b) => new Date(a) - new Date(b));
+      for (let i = 0; i < tracksOldToNew.length; i += 1) {
+        for (let j = 0; j < arr.length; j += 1) {
+          if (arr[j].release_date) {
+            if (arr[j].release_date.includes(tracksOldToNew[i])) {
+              findList.push(arr[j]);
+            }
+          }
+        }
+      }
+    } else if (value === 'new') {
+      const tracksNewToOld = dates.sort((a, b) => new Date(b) - new Date(a));
+      for (let i = 0; i < tracksNewToOld.length; i += 1) {
+        for (let j = 0; j < arr.length; j += 1) {
+          if (arr[j].release_date) {
+            if (arr[j].release_date.includes(tracksNewToOld[i])) {
+              findList.push(arr[j]);
+            }
+          }
+        }
+      }
+    }
+
+    return findList;
+  }
+  //
 
   useEffect(() => {
     if (trackClick) {
@@ -77,12 +162,57 @@ function Playlist({ loading, errorMessage }) {
     dispatch(setLikesState(initialState));
   }, [favoritesTracks]);
 
+  let list;
+  if (searchValue) {
+    list =
+      tracks && tracks.length > 0
+        ? getSearchingTracks(tracks, searchValue)
+        : null;
+  }
+  if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
+    let filteringTrack;
+
+    if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
+      filteringTrack =
+        tracks && tracks.length > 0
+          ? getCombineFilteredTracks(tracks, filterValues)
+          : null;
+    } else if (filterValues.name.length > 0) {
+      filteringTrack =
+        tracks && tracks.length > 0
+          ? getFilteredTracks(tracks, filterValues.name)
+          : null;
+    } else if (filterValues?.genre.length > 0) {
+      filteringTrack =
+        tracks && tracks.length > 0
+          ? getFilteredTracks(tracks, filterValues?.genre)
+          : null;
+    }
+
+    list = filteringTrack;
+  }
+  if (filterValues?.date.length > 0) {
+    list =
+      tracks && tracks.length > 0
+        ? getFilterByDate(tracks, filterValues.date)
+        : null;
+  }
+
+  if (
+    filterValues.date.length === 0 &&
+    filterValues.name.length === 0 &&
+    filterValues.genre.length === 0 &&
+    !searchValue
+  ) {
+    list = tracks;
+  }
+
   const elements =
-    tracks && tracks.length > 0
-      ? tracks.map((item) => (
+    list && list.length > 0
+      ? list.map((item) => (
           <PlaylistItem
             item={item}
-            key={item?.id || Math.random(5)}
+            key={Math.random(40) || Math.random(5)}
             loading={loading}
             toggleLike={toggleLike}
             likesState={likesState}

@@ -8,10 +8,10 @@ function PlaylistTitle() {
   return (
     <StyledTitle theme={{ theme }}>
       <StyledCol theme={{ theme }} className="col01">
-        Трек
+        ИСПОЛНИТЕЛЬ
       </StyledCol>
       <StyledCol theme={{ theme }} className="col02">
-        ИСПОЛНИТЕЛЬ
+        Трек
       </StyledCol>
       <StyledCol theme={{ theme }} className="col03">
         АЛЬБОМ

@@ -9,6 +9,7 @@ export const StyledWrapper = styled.div`
   max-height: 305px;
   padding: 34px;
   display: block;
+  color: ${(props) => (props.theme.theme ? '#000' : '#fff')};
 `;
 
 export const StyledList = styled.ul`
@@ -20,7 +21,6 @@ export const StyledList = styled.ul`
   max-width: 180px;
   max-height: 237px;
   padding-right: 24px;
-  color: ${(props) => (props.theme.theme ? '#000' : '#fff')};
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -36,5 +36,33 @@ export const StyledList = styled.ul`
     border-radius: 10px;
     width: 4px;
     height: 65px;
+  }
+`;
+
+export const StyledElement = styled.li`
+  cursor: pointer;
+  color: ${(props) => (props.styled ? '#AD61FF' : '')};
+`;
+
+export const StyledFieldset = styled.fieldset`
+  border: none;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+  cursor: pointer;
+`;
+
+export const StyledFormButton = styled.div`
+  display: inline-block;
+  color: ${(props) => (props.checked ? '#ad61ff' : '')};
+
+  & input[type='radio'] {
+    display: none;
+  }
+
+  & label {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
   }
 `;
