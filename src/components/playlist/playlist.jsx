@@ -89,27 +89,25 @@ function Playlist({ loading, errorMessage, searchValue, filterValues }) {
     let list = tracks;
     if (searchValue) {
       list =
-        tracks && tracks.length > 0
-          ? getSearchingTracks(tracks, searchValue)
-          : null;
+        list && list.length > 0 ? getSearchingTracks(list, searchValue) : null;
     }
     if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
       let filteringTrack;
 
       if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
         filteringTrack =
-          tracks && tracks.length > 0
-            ? getCombineFilteredTracks(tracks, filterValues)
+          list && list.length > 0
+            ? getCombineFilteredTracks(list, filterValues)
             : null;
       } else if (filterValues.name.length > 0) {
         filteringTrack =
-          tracks && tracks.length > 0
-            ? getFilteredTracks(tracks, filterValues.name)
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues.name)
             : null;
       } else if (filterValues?.genre.length > 0) {
         filteringTrack =
-          tracks && tracks.length > 0
-            ? getFilteredTracks(tracks, filterValues?.genre)
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues?.genre)
             : null;
       }
 
@@ -117,8 +115,8 @@ function Playlist({ loading, errorMessage, searchValue, filterValues }) {
     }
     if (filterValues?.date.length > 0) {
       list =
-        tracks && tracks.length > 0
-          ? getFilterByDate(tracks, filterValues.date)
+        list && list.length > 0
+          ? getFilterByDate(list, filterValues.date)
           : null;
     }
 
