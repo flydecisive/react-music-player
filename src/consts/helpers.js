@@ -94,7 +94,10 @@ export function getSearchingTracks(arr, value) {
 export function getFilterByDate(arr, values) {
   const dates = arr.map((elem) => elem.release_date);
   const index = dates.indexOf(null);
-  dates.splice(index, 1);
+  if (index >= 0) {
+    dates.splice(index, 1);
+  }
+
   const value = values[0];
   let findList = [];
 
