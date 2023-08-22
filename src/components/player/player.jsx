@@ -8,17 +8,16 @@ import {
   setPlayTrack,
   setTracksIds,
 } from '../../store/actions/creators/tracks';
-
 import {
   shuffle,
   findNextTrackId,
   findPrevTrackId,
 } from '../../consts/helpers';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
+import StyledPlayer from './player';
 
-import PlayerControls from './player-controls/player-controls';
-import TrackPlay from '../track-play/track-play';
-import barStyles from '../bar/bar.module.css';
+import PlayerControls from './player-controls/player-controls.jsx';
+import TrackPlay from '../track-play/track-play.jsx';
 
 function Player({
   loading,
@@ -142,7 +141,7 @@ function Player({
   const togglePlay = isPlaying ? handlePause : handleStart;
 
   return (
-    <div className={`${barStyles.player} player`}>
+    <StyledPlayer>
       <audio controls autoPlay src={`${playTrack?.track_file}`} ref={audioRef}>
         <track kind="captions" />
       </audio>
@@ -157,7 +156,7 @@ function Player({
         shuffleClick={shuffleClick}
       />
       <TrackPlay loading={loading} playTrack={playTrack} />
-    </div>
+    </StyledPlayer>
   );
 }
 

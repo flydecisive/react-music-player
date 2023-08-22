@@ -1,12 +1,12 @@
 // правая боковая панель
 
-import SidebarPersonal from './sidebar-personal/sidebar-personal';
-import mainSidebarStyles from '../../pages/main/main.module.css';
+import SidebarPersonal from './sidebar-personal/sidebar-personal.jsx';
+import styles from './sidebar.module.css';
 import SidebarBlock from './sidebar-block/sidebar-block';
 
 function Sidebar({ loading }) {
   return (
-    <div className={`${mainSidebarStyles.sidebar} sidebar`}>
+    <div className={`${styles.sidebar} sidebar`}>
       <SidebarPersonal />
       <SidebarBlock loading={loading} />
     </div>

@@ -1,14 +1,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useLoginContext } from '../../contexts/login';
+import { ReactComponent as LightTheme } from '../../assets/img/icon/light-theme.svg';
+import { ReactComponent as DarkTheme } from '../../assets/img/icon/dark-theme.svg';
+import { useThemeContext } from '../../contexts/theme';
 
-import navMenuStyles from '../nav/nav.module.css';
-import styles from './menu.module.css';
+import {
+  StyledMenu,
+  StyledList,
+  StyledItem,
+  StyledLink,
+  StyledButton,
+} from './menu';
 
 function Menu() {
   const [logout, setLogout] = useState(false);
   const navigate = useNavigate();
+  const { theme, setTheme } = useThemeContext();
 
   const { toggleLogout } = useLoginContext();
 
@@ -20,30 +29,43 @@ function Menu() {
   }, [logout]);
 
   return (
-    <div className={`${navMenuStyles.menu} menu`}>
-      <ul className={styles.list}>
-        <li className={styles.item}>
-          <NavLink className={styles.link} to="/">
+    <StyledMenu>
+      <StyledList>
+        <StyledItem>
+          <StyledLink theme={{ theme }} to="/">
             Главное
-          </NavLink>
-        </li>
-        <li className={styles.item}>
-          <NavLink className={styles.link} to="/favorites">
+          </StyledLink>
+        </StyledItem>
+        <StyledItem>
+          <StyledLink theme={{ theme }} to="/favorites">
             Мой плейлист
-          </NavLink>
-        </li>
-        <li className={styles.item}>
-          <div
+          </StyledLink>
+        </StyledItem>
+        <StyledItem>
+          <StyledButton
+            theme={{ theme }}
             role="button"
             tabIndex={0}
-            className={styles.button}
             onClick={() => setLogout(true)}
           >
             Выйти
-          </div>
-        </li>
-      </ul>
-    </div>
+          </StyledButton>
+        </StyledItem>
+        <StyledItem>
+          <StyledButton
+            theme={{ theme }}
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              localStorage.setItem('theme', !theme);
+              setTheme(!theme);
+            }}
+          >
+            {theme ? <LightTheme /> : <DarkTheme />}
+          </StyledButton>
+        </StyledItem>
+      </StyledList>
+    </StyledMenu>
   );
 }
 

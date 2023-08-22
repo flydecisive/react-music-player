@@ -1,5 +1,5 @@
-import Track from '../../track/track';
-import styles from '../playlist.module.css';
+import Track from '../../track/track.jsx';
+import styles from './playlist-item.module.css';
 
 function PlaylistItem({
   item,
@@ -13,7 +13,7 @@ function PlaylistItem({
       <Track
         item={item}
         loading={loading}
-        id={item.id}
+        // id={item.id}
         toggleLike={toggleLike}
         likesState={likesState}
         setTrackClick={setTrackClick}

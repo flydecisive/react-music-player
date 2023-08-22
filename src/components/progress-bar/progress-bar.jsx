@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { useThemeContext } from '../../contexts/theme';
 
 export const StyledProgressInput = styled.input`
   --progress-height: 8px;
-  --progress-color: #b672ff;
-  --progress-color: ${(props) => props.$color ?? '#b672ff'};
+  --progress-color: #ad61ff;
+  --progress-color: ${(props) => props.color ?? '#AD61FF'};
 
-  --progress-bg-color: #2e2e2e;
+  --progress-bg-color: ${(props) =>
+    props.theme.theme ? '#F6F5F3' : '#2e2e2e'};
 
   margin: 0;
   width: 100%;
@@ -61,6 +63,7 @@ export default function ProgressBar({
   duration,
   setCurrentTimeUser,
 }) {
+  const { theme } = useThemeContext();
   return (
     <StyledProgressInput
       type="range"
@@ -72,6 +75,7 @@ export default function ProgressBar({
         setCurrentTimeUser(event.target.value);
       }}
       $color="#ff0000"
+      theme={{ theme }}
     />
   );
 }

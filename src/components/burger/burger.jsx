@@ -1,19 +1,19 @@
-import burgerLineStyles from './burger.module.css';
-import burgerStyles from '../nav/nav.module.css';
+import { StyledBurger, StyledBurgerLine } from './burger';
+import { useThemeContext } from '../../contexts/theme';
 
 function Burger({ toggleBurgerClick }) {
+  const { theme } = useThemeContext();
   return (
-    <div
-      className={`${burgerStyles.burger} burger`}
+    <StyledBurger
       onClick={toggleBurgerClick}
       role="button"
       tabIndex={0}
       onKeyDown={toggleBurgerClick}
     >
-      <span className={burgerLineStyles.line} />
-      <span className={burgerLineStyles.line} />
-      <span className={burgerLineStyles.line} />
-    </div>
+      <StyledBurgerLine theme={{ theme }} />
+      <StyledBurgerLine theme={{ theme }} />
+      <StyledBurgerLine theme={{ theme }} />
+    </StyledBurger>
   );
 }
 

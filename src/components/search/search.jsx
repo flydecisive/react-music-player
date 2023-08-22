@@ -1,22 +1,25 @@
 // панель поиска
 
-import styles from './search.module.css';
-import centerblockSearchStyles from '../centerblock/centerblock.module.css';
-import { ReactComponent as SearchIc } from '../../assets/img/icon/search.svg';
+import { ReactComponent as SearchIcon } from '../../assets/img/icon/search.svg';
+import { useThemeContext } from '../../contexts/theme';
+import { StyledSearch, StyledInput, StyledSvg } from './search';
 
-function Search() {
+function Search({ getSearchValue }) {
+  const { theme } = useThemeContext();
+
   return (
-    <div className={`${centerblockSearchStyles.search} search`}>
-      <svg className={styles.svg}>
-        <SearchIc />
-      </svg>
-      <input
-        className={styles.text}
+    <StyledSearch>
+      <StyledSvg>
+        <SearchIcon stroke={theme ? '#000' : '#fff'} />
+      </StyledSvg>
+      <StyledInput
+        theme={{ theme }}
         type="search"
         placeholder="Поиск"
         name="search"
+        onInput={(event) => getSearchValue(event)}
       />
-    </div>
+    </StyledSearch>
   );
 }
 

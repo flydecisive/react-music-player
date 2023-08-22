@@ -3,106 +3,123 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // компонент для трэка
 import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect } from 'react';
-import styles from './track.module.css';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import { ReactComponent as Like } from '../../assets/img/icon/like.svg';
-// createFavorites
+// import { ReactComponent as LightNote } from '../../assets/img/icon/light-note.svg';
 import { secondsToTime } from '../../consts/helpers';
 import Skeleton from '../skeleton/skeleton';
-import Dot from '../dot/dot';
+import { useThemeContext } from '../../contexts/theme';
+import Dot from '../dot/dot.jsx';
 import { useIsPlayingContext } from '../../contexts/isPlaying';
-// setFavoritesTracks
 import { setPlayTrack } from '../../store/actions/creators/tracks';
-// import { useGetAllTracksQuery } from '../../services/tracks';
+import {
+  StyledWrapper,
+  StyledAlbum,
+  StyledAuthor,
+  StyledTime,
+  StyledTitle,
+  StyledTitleImage,
+  StyledTitleSvg,
+  StyledText,
+  StyledLightText,
+  StyledLikeSvg,
+  StyledTimeText,
+} from './track';
 
-function Track({ item, loading, toggleLike, id, likesState, setTrackClick }) {
+function Track({ item, loading, toggleLike, likesState, setTrackClick }) {
+  const { theme } = useThemeContext();
   const dispatch = useDispatch();
   const playedTrack = useSelector((store) => store.tracks.playTrack);
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
-  const isLike = likesState[id];
+  const isLike = likesState[item?.id];
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem('user');
-  //   console.log(user);
+  const defineElement = (e) => {
+    let target;
+    let likeButton;
+    if (e) {
+      target = e.target;
+    }
 
-  //   if (isLike) {
-  //     console.log(allTracks);
-  //   }
-  // }, [isLike]);
+    if (target) {
+      likeButton = target.closest('svg[id]');
+    }
+
+    return likeButton;
+  };
+
+  const trackClick = (event) => {
+    const excludedButton = defineElement(event);
+    if (!excludedButton) {
+      dispatch(setPlayTrack(item));
+      toggleIsPlaying(true);
+      setTrackClick(true);
+    }
+  };
 
   return (
     <div className="track">
       {loading ? (
-        <div className={styles.wrapper}>
-          <div className={styles.title}>
+        <StyledWrapper>
+          <StyledTitle>
             <Skeleton width="51px" height="51px" />
             <Skeleton width="145px" height="24px" />
-          </div>
-          <div className={styles.author}>
+          </StyledTitle>
+          <StyledAuthor>
             <Skeleton width="200px" height="24px" />
-          </div>
-          <div className={styles.album}>
+          </StyledAuthor>
+          <StyledAlbum>
             <Skeleton width="150px" height="24px" />
-          </div>
-          <div className={styles.time}>
+          </StyledAlbum>
+          <StyledTime>
             <Skeleton width="50px" height="24px" />
-          </div>
-        </div>
+          </StyledTime>
+        </StyledWrapper>
       ) : (
-        <div
-          className={styles.wrapper}
-          onClick={() => {
-            dispatch(setPlayTrack(item));
-            toggleIsPlaying(true);
-            setTrackClick(true);
+        <StyledWrapper
+          onClick={(e) => {
+            trackClick(e);
           }}
           role="button"
           tabIndex={0}
-          onKeyDown={() => {
-            dispatch(setPlayTrack(item));
-            toggleIsPlaying(true);
-            setTrackClick(true);
+          onKeyDown={(e) => {
+            trackClick(e);
           }}
         >
-          <div className={styles.title}>
-            <div className={styles['title-image']}>
-              {playedTrack && playedTrack.id === item.id ? (
+          <StyledTitle>
+            <StyledTitleImage theme={{ theme }}>
+              {playedTrack && playedTrack?.id === item?.id ? (
                 <Dot isPlaying={isPlaying} />
               ) : (
-                <svg className={styles['title-svg']} alt="music">
+                <StyledTitleSvg theme={{ theme }}>
                   <Note />
-                </svg>
+                </StyledTitleSvg>
               )}
-            </div>
-            <div className="track__title-text">
-              <p className={styles['title-link']}>
-                {item.author} <span className={styles['title-span']} />
-              </p>
-            </div>
-          </div>
-          <div className={styles.author}>
-            <p className={styles['author-link']}>{item.name}</p>
-          </div>
-          <div className={styles.album}>
-            <p className={styles['album-link']}>{item.album}</p>
-          </div>
-          <div
-            className={styles.time}
-            id={id}
-            onClick={(event) => toggleLike(event)}
-          >
-            <svg className={styles['like-svg']} alt="like">
+            </StyledTitleImage>
+            <StyledText theme={{ theme }}>{item.author}</StyledText>
+          </StyledTitle>
+          <StyledAuthor>
+            <StyledText theme={{ theme }}>{item.name}</StyledText>
+          </StyledAuthor>
+          <StyledAlbum>
+            <StyledLightText t>{item.album}</StyledLightText>
+          </StyledAlbum>
+          <StyledTime>
+            <StyledLikeSvg
+              id={item?.id}
+              onClick={(event) => toggleLike(event)}
+              theme={{ theme }}
+              className="_like-icon"
+            >
               <Like
                 fill={isLike ? '#ad61ff' : 'transparent'}
                 stroke={isLike ? '#ad61ff' : '#696969'}
               />
-            </svg>
-            <span className={styles['time-text']}>
+            </StyledLikeSvg>
+            <StyledTimeText theme={{ theme }}>
               {secondsToTime(item.duration_in_seconds)}
-            </span>
-          </div>
-        </div>
+            </StyledTimeText>
+          </StyledTime>
+        </StyledWrapper>
       )}
     </div>
   );

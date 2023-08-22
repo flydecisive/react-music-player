@@ -1,24 +1,30 @@
 import { useState } from 'react';
 import { secondsToTime } from '../../../consts/helpers';
 
-import Player from '../../player/player';
-import Volume from '../../volume/volume';
+import Player from '../../player/player.jsx';
+import Volume from '../../volume/volume.jsx';
 import ProgressBar from '../../progress-bar/progress-bar';
-import styles from '../bar.module.css';
+import {
+  StyledContent,
+  StyledTimeDuration,
+  StyledPlayerBlock,
+} from './bar-content';
+import { useThemeContext } from '../../../contexts/theme';
 
 function BarContent({ loading }) {
+  const { theme } = useThemeContext();
   const [volume, setVolume] = useState(50);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTimeUser, setCurrentTimeUser] = useState(0);
 
   return (
-    <div className={styles.content}>
-      <p className={styles['time-duration']}>
+    <StyledContent>
+      <StyledTimeDuration theme={{ theme }}>
         {`${secondsToTime(Math.floor(currentTime))} / ${secondsToTime(
           Math.floor(duration)
         )}`}
-      </p>
+      </StyledTimeDuration>
 
       <ProgressBar
         currentTime={currentTime}
@@ -27,7 +33,7 @@ function BarContent({ loading }) {
         setCurrentTimeUser={setCurrentTimeUser}
       />
 
-      <div className={styles['player-block']}>
+      <StyledPlayerBlock>
         <Player
           loading={loading}
           volume={volume}
@@ -38,8 +44,8 @@ function BarContent({ loading }) {
         />
 
         <Volume setVolume={setVolume} />
-      </div>
-    </div>
+      </StyledPlayerBlock>
+    </StyledContent>
   );
 }
 

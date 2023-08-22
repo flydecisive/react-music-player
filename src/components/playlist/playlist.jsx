@@ -1,39 +1,47 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-param-reassign */
 // import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PlaylistItem from './playlist-item/playlist-item';
-import contentStyles from '../centerblock/centerblock-content/content.module.css';
-import { useTracksContext } from '../../contexts/tracks';
-// setFavoritesTracks
+import StyledPlaylist from './playlist';
+import { useThemeContext } from '../../contexts/theme';
 import {
   setLikesState,
-  setFavoritesTracks,
+  setCurrentPlaylist,
 } from '../../store/actions/creators/tracks';
 import { useTokenContext } from '../../contexts/token';
-// getFavoritesTracks
-import {
-  deleteTrackInFavorites,
-  addTrackInFavorites,
-  getFavoritesTracks,
-} from '../../api';
 import { useSwitchPlaylistContext } from '../../contexts/switchPlaylist';
-// import { useGetAllTracksQuery } from '../../services/tracks';
+import {
+  useGetAllTracksQuery,
+  useLikeTrackMutation,
+  useDislikeTrackMutation,
+} from '../../services/tracks';
+import { useTracksContext } from '../../contexts/tracks';
+import {
+  getFilterByDate,
+  getSearchingTracks,
+  getFilteredTracks,
+  getCombineFilteredTracks,
+} from '../../consts/helpers';
 
-// import { createFavorites } from '../../consts/helpers';
-
-function Playlist({ loading, errorMessage }) {
+function Playlist({ loading, errorMessage, searchValue, filterValues }) {
+  const { theme } = useThemeContext();
   const { token } = useTokenContext();
   const [trackClick, setTrackClick] = useState(false);
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
-  const favoritesIds = favoritesTracks.map((favoriteTrack) => favoriteTrack.id);
+  const favoritesIds = favoritesTracks?.map(
+    (favoriteTrack) => favoriteTrack.id
+  );
   const tracksIds = useSelector((store) => store.tracks.tracksIds);
   const likesState = useSelector((store) => store.tracks.likesState);
   const dispatch = useDispatch();
   const initialState = {};
-  // const allTracks = useGetAllTracksQuery().data;
-  // let allTracks;
-  // const user = localStorage.getItem('user');
+  const allTracks = useGetAllTracksQuery().data;
   const { setSwitchPlaylist } = useSwitchPlaylistContext();
+  const [likeTrigger] = useLikeTrackMutation();
+  const [dislikeTrigger] = useDislikeTrackMutation();
+  const tracks = useTracksContext();
 
   useEffect(() => {
     if (trackClick) {
@@ -42,51 +50,26 @@ function Playlist({ loading, errorMessage }) {
     } else {
       setTrackClick(false);
     }
+    dispatch(setCurrentPlaylist(allTracks));
   }, [trackClick]);
-
-  // if (trackClick) {
-  //   allTracks = useGetAllTracksQuery().data;
-  // }
-
-  // console.log(allTracks);
-
-  const tracks = useTracksContext();
-
-  const getNewFavoritesTracks = async () => {
-    dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)));
-  };
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget;
-    const value = likesState[id];
+    const trackState = likesState[id];
     const newLikesState = { ...likesState };
+    const { access } = token;
+    const args = { id, token: access };
 
-    if (value) {
+    if (trackState) {
       newLikesState[id] = false;
-      await deleteTrackInFavorites(token?.access, id);
-      // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      if (token?.access) {
-        await getNewFavoritesTracks();
-      }
+      await dislikeTrigger(args);
     } else {
       newLikesState[id] = true;
-      await addTrackInFavorites(token?.access, id);
-      // dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-      if (token?.access) {
-        await getNewFavoritesTracks();
-      }
+      await likeTrigger(args);
     }
 
     dispatch(setLikesState(newLikesState));
   };
-
-  // useEffect(() => {
-  //   dispatch(setFavoritesTracks(createFavorites(allTracks, user)));
-  // }, [likesState]);
-
-  // useEffect(() => {
-  //   console.log('reuse');
-  // }, [allTracks]);
 
   useEffect(() => {
     if (tracksIds) {
@@ -102,24 +85,67 @@ function Playlist({ loading, errorMessage }) {
     dispatch(setLikesState(initialState));
   }, [favoritesTracks]);
 
-  const elements =
-    tracks && tracks.length > 0
-      ? tracks.map((item) => (
-          <PlaylistItem
-            item={item}
-            key={item.id || Math.random(5)}
-            loading={loading}
-            toggleLike={toggleLike}
-            likesState={likesState}
-            setTrackClick={setTrackClick}
-          />
-        ))
-      : null;
+  const filterList = () => {
+    let list = tracks;
+    if (searchValue) {
+      list =
+        list && list.length > 0 ? getSearchingTracks(list, searchValue) : null;
+    }
+    if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
+      let filteringTrack;
+
+      if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getCombineFilteredTracks(list, filterValues)
+            : null;
+      } else if (filterValues.name.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues.name)
+            : null;
+      } else if (filterValues?.genre.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues?.genre)
+            : null;
+      }
+
+      list = filteringTrack;
+    }
+    if (filterValues?.date.length > 0) {
+      list =
+        list && list.length > 0
+          ? getFilterByDate(list, filterValues.date)
+          : null;
+    }
+
+    return list;
+  };
+
+  const filteredList = filterList();
 
   return (
-    <div className={`${contentStyles.playlist} playlist`}>
-      {errorMessage || elements}
-    </div>
+    <StyledPlaylist theme={{ theme }}>
+      {errorMessage || tracks?.length > 0 ? (
+        filteredList?.length > 0 ? (
+          filteredList.map((item) => (
+            <PlaylistItem
+              item={item}
+              key={Math.random(40) || Math.random(5)}
+              loading={loading}
+              toggleLike={toggleLike}
+              likesState={likesState}
+              setTrackClick={setTrackClick}
+            />
+          ))
+        ) : (
+          <h2>Ничего не найдено</h2>
+        )
+      ) : (
+        ''
+      )}
+    </StyledPlaylist>
   );
 }
 

@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import Nav from '../../components/nav/nav';
+import Nav from '../../components/nav/nav.jsx';
 import styles from './favorites.module.css';
-import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content';
-import Search from '../../components/search/search';
+import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content.jsx';
+import Search from '../../components/search/search.jsx';
 import Sidebar from '../../components/sidebar/sidebar';
 import { TracksContext } from '../../contexts/tracks';
 import {
@@ -11,8 +11,11 @@ import {
   setCurrentPlaylist,
 } from '../../store/actions/creators/tracks';
 import { useSwitchPlaylistContext } from '../../contexts/switchPlaylist';
+import { StyledText } from '../../components/centerblock/centerblock-content/centerblock-content';
+import { useThemeContext } from '../../contexts/theme';
 
 function Favorites() {
+  const { theme } = useThemeContext();
   const dispatch = useDispatch();
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
   const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext();
@@ -35,7 +38,13 @@ function Favorites() {
         <Search />
         <h2 className={styles.h2}>Мои треки</h2>
         <TracksContext.Provider value={favoritesTracks}>
-          <CenterblockContent />
+          {favoritesTracks.length > 0 ? (
+            <CenterblockContent favoritesTracks={favoritesTracks} />
+          ) : (
+            <StyledText theme={{ theme }}>
+              На этой странице нет треков
+            </StyledText>
+          )}
         </TracksContext.Provider>
       </div>
       <Sidebar />

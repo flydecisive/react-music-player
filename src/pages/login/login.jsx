@@ -28,17 +28,19 @@ function LoginPage() {
       }
 
       if (user.id) {
-        setCurrentUser(user);
-        toggleLogin(true);
-        navigate('/');
+        if (!user.detail) {
+          setCurrentUser(user);
+          toggleLogin(true);
+          navigate('/');
+          const token = await getToken(login, password);
+          setToken(token);
+          localStorage.setItem('refresh', token.refresh);
+        }
       }
     } catch (error) {
       console.log(error.message);
     } finally {
       setDisabled(false);
-      const token = await getToken(login, password);
-      setToken(token);
-      localStorage.setItem('refresh', token.refresh);
     }
   };
 

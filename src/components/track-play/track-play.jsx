@@ -2,52 +2,54 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // блок для проигрывания трэков
 
-// import { useState } from 'react';
-// import LikeDis from './like-dis/like-dis';
-import styles from './track-play.module.css';
-import trackPlayStyles from '../player/player.module.css';
+import {
+  StyledWrapper,
+  StyledContain,
+  StyledImage,
+  StyledSvg,
+  StyledTrack,
+  StyledAuthor,
+} from './track-play';
+import LikeDis from './like-dis/like-dis';
 import { ReactComponent as Note } from '../../assets/img/icon/note.svg';
 import Skeleton from '../skeleton/skeleton';
+import { useThemeContext } from '../../contexts/theme';
 
 function TrackPlay({ loading, playTrack }) {
+  // const { isPlaying } = useIsPlayingContext();
+  const { theme } = useThemeContext();
+  const { id } = playTrack;
+
   return (
-    <div className={`${trackPlayStyles['track-play']} track-play`}>
-      <div className={styles.contain}>
+    <StyledWrapper>
+      <StyledContain>
         {loading ? (
           <>
-            <div className={styles.image}>
+            <StyledImage>
               <Skeleton width="51px" height="51px" />
-            </div>
-            <div className={styles.author}>
+            </StyledImage>
+            <StyledTrack>
               <Skeleton width="40px" height="15px" />
-            </div>
-            <div className={styles.album}>
+            </StyledTrack>
+            <StyledAuthor>
               <Skeleton width="40px" height="15px" />
-            </div>
+            </StyledAuthor>
           </>
         ) : (
           <>
-            <div className={styles.image}>
-              <svg className={styles.svg} alt="music">
+            <StyledImage theme={{ theme }}>
+              <StyledSvg theme={{ theme }}>
                 <Note />
-              </svg>
-            </div>
-            <div className={styles.author}>
-              <a className={styles['author-link']} href="http://">
-                {playTrack?.name}
-              </a>
-            </div>
-            <div className={styles.album}>
-              <a className={styles['album-link']} href="http://">
-                {playTrack?.author}
-              </a>
-            </div>
+              </StyledSvg>
+            </StyledImage>
+            <StyledTrack theme={{ theme }}>{playTrack?.name}</StyledTrack>
+            <StyledAuthor theme={{ theme }}>{playTrack?.author}</StyledAuthor>
           </>
         )}
-      </div>
+      </StyledContain>
 
-      {/* <LikeDis toggleLike={toggleLike} toggleDislike={toggleDislike} /> */}
-    </div>
+      <LikeDis id={id} />
+    </StyledWrapper>
   );
 }
 

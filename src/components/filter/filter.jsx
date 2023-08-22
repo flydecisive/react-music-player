@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import styles from './filter.module.css';
-import centerblockFilterStyles from '../centerblock/centerblock.module.css';
 import { createFilterList } from '../../consts/helpers';
-import FilterButton from './filter-button/filter-button';
+import FilterButton from './filter-button/filter-button.jsx';
 import { useTracksContext } from '../../contexts/tracks';
+import { StyledFilter, StyledTitle, StyledButtons } from './filter';
+import { useThemeContext } from '../../contexts/theme';
+import DateFilterButton from './date-filter-button/date-filter-button.jsx';
 
 let state = {
   0: false,
@@ -27,7 +28,8 @@ const changeState = (filterState, id) => {
   return newState;
 };
 
-function Filter() {
+function Filter({ getFilterValue, filterValues, setButtonId }) {
+  const { theme } = useThemeContext();
   const filterElements = useTracksContext();
 
   const [dropdownList, setDropdownList] = useState();
@@ -36,36 +38,54 @@ function Filter() {
   const toggleButton = (e) => {
     const { target } = e;
     const id = Number(target.id);
-    setDropdownList(createFilterList(filterElements, id));
+    setButtonId(id);
+    if (id === 0 || id === 2) {
+      setDropdownList(createFilterList(filterElements, id));
+    } else {
+      setDropdownList(
+        createFilterList(
+          ['сначала старые', 'сначала новые', 'по умолчанию'],
+          id
+        )
+      );
+    }
 
     setButtonsState(changeState(state, id));
   };
 
   return (
-    <div className={`${centerblockFilterStyles.filter} filter`}>
-      <div className={styles.title}>Искать по:</div>
-      <FilterButton
-        toggleButton={toggleButton}
-        dropdownList={dropdownList}
-        id="0"
-        text="исполнителю"
-        buttonsState={buttonsState}
-      />
-      <FilterButton
-        toggleButton={toggleButton}
-        dropdownList={dropdownList}
-        id="1"
-        text="году выпуска"
-        buttonsState={buttonsState}
-      />
-      <FilterButton
-        toggleButton={toggleButton}
-        dropdownList={dropdownList}
-        id="2"
-        text="жанру"
-        buttonsState={buttonsState}
-      />
-    </div>
+    <StyledFilter>
+      <StyledTitle theme={{ theme }}>Искать по:</StyledTitle>
+      <StyledButtons>
+        <FilterButton
+          toggleButton={toggleButton}
+          dropdownList={dropdownList}
+          id="0"
+          text="исполнителю"
+          buttonsState={buttonsState}
+          getFilterValue={getFilterValue}
+          filterValues={filterValues.name}
+        />
+        <DateFilterButton
+          toggleButton={toggleButton}
+          dropdownList={dropdownList}
+          id="1"
+          text="году выпуска"
+          buttonsState={buttonsState}
+          getFilterValue={getFilterValue}
+          filterValues={filterValues.genre}
+        />
+        <FilterButton
+          toggleButton={toggleButton}
+          dropdownList={dropdownList}
+          id="2"
+          text="жанру"
+          buttonsState={buttonsState}
+          getFilterValue={getFilterValue}
+          filterValues={filterValues.genre}
+        />
+      </StyledButtons>
+    </StyledFilter>
   );
 }
 

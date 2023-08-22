@@ -1,13 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import BarContent from './bar-content/bar-content';
-import './bar.module.css';
+import BarContent from './bar-content/bar-content.jsx';
+import StyledBar from './bar';
+import { useThemeContext } from '../../contexts/theme';
 
 function Bar({ loading }) {
+  const { theme } = useThemeContext();
   return (
-    <div className="bar visible">
+    <StyledBar theme={{ theme }}>
       <BarContent loading={loading} />
-    </div>
+    </StyledBar>
   );
 }
 

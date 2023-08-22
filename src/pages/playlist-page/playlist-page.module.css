@@ -1,7 +1,18 @@
-.wrapper {
+/* .wrapper {
   flex: 1 1 auto;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   flex-wrap: wrap;
   justify-content: space-between;
+} */
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.content {
+  grid-column: 2 / 9;
+  padding-top: 20px;
+  padding-right: 10px;
 }
