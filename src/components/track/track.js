@@ -34,8 +34,8 @@ export const StyledTime = styled.div`
 `;
 
 export const StyledTitleImage = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
   padding: 16px;
   background: ${(props) => (props.theme.theme ? '#F6F4F4' : '#313131')};
   display: flex;
