@@ -12,7 +12,7 @@ function AppRoutes({ loading, auth, errorMessage, registerUser, setAuth }) {
     <Routes>
       <Route element={<ProtectedRoute isAllowed={auth} />}>
         <Route
-          path="/react-music-player"
+          path="/"
           element={<Main loading={loading} errorMessage={errorMessage} />}
         />
         <Route path="/category/:id" element={<PlaylistPage />} />
