@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AppRoutes from './routes';
 import StyledApp from './App';
 import { registerUser, getAccessToken } from './api';
@@ -40,6 +41,7 @@ function App() {
   const playTrack = useSelector((store) => store.tracks.playTrack);
   const currentPlaylist = useSelector((store) => store.tracks.currentPlaylist);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let errorMessage;
 
   if (error) {
@@ -61,6 +63,16 @@ function App() {
       setTokenAfterUnload();
     }
   }, [token]);
+
+  useEffect(() => {
+    const userNavigate = () => {
+      navigate('/react-music-player');
+    };
+    window.addEventListener('beforeunload', userNavigate);
+    return () => {
+      window.removeEventListener('beforeunload', userNavigate);
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(setTracksIds(allTracks?.map((trackData) => trackData?.id)));
