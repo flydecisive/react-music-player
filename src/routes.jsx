@@ -12,20 +12,26 @@ function AppRoutes({ loading, auth, errorMessage, registerUser, setAuth }) {
     <Routes>
       <Route element={<ProtectedRoute isAllowed={auth} />}>
         <Route
-          path="/main"
+          path="/react-music-player/"
           element={<Main loading={loading} errorMessage={errorMessage} />}
         />
-        <Route path="/category/:id" element={<PlaylistPage />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/react-music-player/category/:id"
+          element={<PlaylistPage />}
+        />
+        <Route path="/react-music-player/favorites" element={<Favorites />} />
       </Route>
 
-      <Route
+      {/* <Route
         path="/react-music-player"
         element={<LoginPage setAuth={setAuth} />}
-      />
-      <Route path="/login" element={<LoginPage setAuth={setAuth} />} />
+      /> */}
       <Route
-        path="/register"
+        path="/react-music-player/login"
+        element={<LoginPage setAuth={setAuth} />}
+      />
+      <Route
+        path="/react-music-player/register"
         element={<RegisterPage />}
         registerUser={registerUser}
       />
