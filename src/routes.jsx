@@ -19,6 +19,10 @@ function AppRoutes({ loading, auth, errorMessage, registerUser, setAuth }) {
         <Route path="/favorites" element={<Favorites />} />
       </Route>
 
+      <Route
+        path="/react-music-player"
+        element={<LoginPage setAuth={setAuth} />}
+      />
       <Route path="/login" element={<LoginPage setAuth={setAuth} />} />
       <Route
         path="/register"
