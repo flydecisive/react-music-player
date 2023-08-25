@@ -8,8 +8,8 @@ import { useUserContext } from '../../contexts/user';
 import { useTokenContext } from '../../contexts/token';
 
 function LoginPage() {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState('test@test.test');
+  const [password, setPassword] = useState('test@test.test');
   const [errorMessage, setErrorMessage] = useState();
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
@@ -65,6 +65,7 @@ function LoginPage() {
                 type="text"
                 placeholder="Логин"
                 className={styles.input}
+                defaultValue="test@test.test"
                 onInput={(e) => {
                   setLogin(e.target.value);
                 }}
@@ -72,6 +73,7 @@ function LoginPage() {
               <input
                 type="text"
                 placeholder="Пароль"
+                defaultValue="test@test.test"
                 className={styles.input}
                 onInput={(e) => {
                   setPassword(e.target.value);
