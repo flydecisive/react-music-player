@@ -1,31 +1,31 @@
 {
   "files": {
-    "main.css": "/react-music-player/static/css/main.fae1d25c.css",
-    "main.js": "/react-music-player/static/js/main.047cff1d.js",
+    "main.css": "/react-music-player/static/css/main.1062e4c6.css",
+    "main.js": "/react-music-player/static/js/main.d0b15932.js",
     "static/media/playlist01.png": "/react-music-player/static/media/playlist01.1f0f03b6028fe76c9c24.png",
     "static/media/playlist03.png": "/react-music-player/static/media/playlist03.09e115ca5326c4224eb5.png",
     "static/media/playlist02.png": "/react-music-player/static/media/playlist02.1ebc1a93e700376dd918.png",
-    "static/media/light-theme.svg": "/react-music-player/static/media/light-theme.b7fec3ddb7da2f4dcac7eb7dee1ff7b8.svg",
-    "static/media/shuffle.svg": "/react-music-player/static/media/shuffle.e34109e37516801d7a40d1ed33b721cc.svg",
-    "static/media/dark-theme.svg": "/react-music-player/static/media/dark-theme.15f4483408f6f4178e6eef5d23403cbb.svg",
-    "static/media/volume.svg": "/react-music-player/static/media/volume.0112b86e3d7edf85887548f957e36b4c.svg",
-    "static/media/repeat.svg": "/react-music-player/static/media/repeat.ebbf5e3e2f5362c77475deb7715de61f.svg",
+    "static/media/light-theme.svg": "/react-music-player/static/media/light-theme.d1fa43d30be5444cf7b0c8c49e5d7c54.svg",
+    "static/media/shuffle.svg": "/react-music-player/static/media/shuffle.10a03ecdf9b46cd7115004d397bbb248.svg",
+    "static/media/dark-theme.svg": "/react-music-player/static/media/dark-theme.a1e581836a0d51fb27ed955771a7fa91.svg",
+    "static/media/volume.svg": "/react-music-player/static/media/volume.c673c2ac1b5f718686e4f3dc062a1158.svg",
+    "static/media/repeat.svg": "/react-music-player/static/media/repeat.dbc4eb7307a960a5bcd61ae2ce42851e.svg",
     "index.html": "/react-music-player/index.html",
-    "static/media/exit.svg": "/react-music-player/static/media/exit.ec96e1e83f253d5e233aca2216abea69.svg",
-    "static/media/dislike.svg": "/react-music-player/static/media/dislike.0d6f1345b0123b35c8cd1004f216d847.svg",
-    "static/media/like.svg": "/react-music-player/static/media/like.cc9f06b706a46f938260611db6d50fee.svg",
-    "static/media/search.svg": "/react-music-player/static/media/search.f5e83875854689d3cc630341532fc491.svg",
-    "static/media/note.svg": "/react-music-player/static/media/note.5e396d3f228eee188cbf0d4ef4ceb550.svg",
-    "static/media/next.svg": "/react-music-player/static/media/next.8aa38a1d5f62ce4ee23e1ebcee247300.svg",
-    "static/media/prev.svg": "/react-music-player/static/media/prev.e17eb40a8a7a62cc71f62be1cb82c9e2.svg",
-    "static/media/pause.svg": "/react-music-player/static/media/pause.4908c949f3d643421d18099a76309a6d.svg",
-    "static/media/watch.svg": "/react-music-player/static/media/watch.bc109a27da555040c3caa746e8fac8a1.svg",
-    "static/media/play.svg": "/react-music-player/static/media/play.d21d57e175b6b5bfb58042d4ca34ebe0.svg",
-    "main.fae1d25c.css.map": "/react-music-player/static/css/main.fae1d25c.css.map",
-    "main.047cff1d.js.map": "/react-music-player/static/js/main.047cff1d.js.map"
+    "static/media/exit.svg": "/react-music-player/static/media/exit.b64879fac5797e6631077435d10413c9.svg",
+    "static/media/dislike.svg": "/react-music-player/static/media/dislike.f328e0d4a8e4bcc90ce917f3651431a7.svg",
+    "static/media/like.svg": "/react-music-player/static/media/like.c5cf206d9c4516847cb720a3b6f1f745.svg",
+    "static/media/search.svg": "/react-music-player/static/media/search.7e7fbebad83538c7a1ca6b7285fbbded.svg",
+    "static/media/note.svg": "/react-music-player/static/media/note.5dc3c1bd832f4ac4e43b097232c48f6c.svg",
+    "static/media/next.svg": "/react-music-player/static/media/next.1adefe8089493de2e16d3a67f6c1ac88.svg",
+    "static/media/prev.svg": "/react-music-player/static/media/prev.eecab5d10e009d0bdd405c7f94e2c64a.svg",
+    "static/media/pause.svg": "/react-music-player/static/media/pause.72a183709292c518021f0de4748bb3f1.svg",
+    "static/media/watch.svg": "/react-music-player/static/media/watch.6ad3267968f6ed592b2c620aeeed11d7.svg",
+    "static/media/play.svg": "/react-music-player/static/media/play.b360f85e94355e770c003953867f3021.svg",
+    "main.1062e4c6.css.map": "/react-music-player/static/css/main.1062e4c6.css.map",
+    "main.d0b15932.js.map": "/react-music-player/static/js/main.d0b15932.js.map"
   },
   "entrypoints": [
-    "static/css/main.fae1d25c.css",
-    "static/js/main.047cff1d.js"
+    "static/css/main.1062e4c6.css",
+    "static/js/main.d0b15932.js"
   ]
 }
