@@ -15,17 +15,17 @@ function CenterblockContent({
   let maxHeight;
   if (!playTrack?.id) {
     if (location.includes('favorites') || location.includes('category')) {
-      maxHeight = '77vh';
+      maxHeight = '84vh';
     } else {
-      maxHeight = '60vh';
+      maxHeight = '67vh';
     }
   }
 
   if (playTrack?.id) {
     if (location.includes('favorites') || location.includes('category')) {
-      maxHeight = '64vh';
+      maxHeight = '74vh';
     } else {
-      maxHeight = '45vh';
+      maxHeight = '58vh';
     }
   }
 

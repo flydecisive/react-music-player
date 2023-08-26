@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import Nav from '../../components/nav/nav.jsx';
 import Centerblock from '../../components/centerblock/centerblock.jsx';
 import Sidebar from '../../components/sidebar/sidebar';
-// import Footer from '../../components/footer/footer';
 import styles from './main.module.css';
 import {
   setTracksIds,
@@ -32,7 +31,6 @@ function Main({ errorMessage, loading }) {
       <Nav />
       <Centerblock loading={loading} errorMessage={errorMessage} />
       <Sidebar loading={loading} />
-      {/* <Footer /> */}
     </main>
   );
 }
