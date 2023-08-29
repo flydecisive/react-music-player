@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-music-player/static/css/main.1062e4c6.css",
-    "main.js": "/react-music-player/static/js/main.d0b15932.js",
+    "main.css": "/react-music-player/static/css/main.a5921ba8.css",
+    "main.js": "/react-music-player/static/js/main.01f142e5.js",
     "static/media/playlist01.png": "/react-music-player/static/media/playlist01.1f0f03b6028fe76c9c24.png",
     "static/media/playlist03.png": "/react-music-player/static/media/playlist03.09e115ca5326c4224eb5.png",
     "static/media/playlist02.png": "/react-music-player/static/media/playlist02.1ebc1a93e700376dd918.png",
@@ -21,11 +21,11 @@
     "static/media/pause.svg": "/react-music-player/static/media/pause.72a183709292c518021f0de4748bb3f1.svg",
     "static/media/watch.svg": "/react-music-player/static/media/watch.6ad3267968f6ed592b2c620aeeed11d7.svg",
     "static/media/play.svg": "/react-music-player/static/media/play.b360f85e94355e770c003953867f3021.svg",
-    "main.1062e4c6.css.map": "/react-music-player/static/css/main.1062e4c6.css.map",
-    "main.d0b15932.js.map": "/react-music-player/static/js/main.d0b15932.js.map"
+    "main.a5921ba8.css.map": "/react-music-player/static/css/main.a5921ba8.css.map",
+    "main.01f142e5.js.map": "/react-music-player/static/js/main.01f142e5.js.map"
   },
   "entrypoints": [
-    "static/css/main.1062e4c6.css",
-    "static/js/main.d0b15932.js"
+    "static/css/main.a5921ba8.css",
+    "static/js/main.01f142e5.js"
   ]
 }
