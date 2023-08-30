@@ -30,7 +30,7 @@ function CenterblockContent({
   // }
 
   return (
-    <StyledContent isPlay={playTrack.id}>
+    <StyledContent isPlay={playTrack?.id}>
       <PlaylistTitle />
       <Playlist
         loading={loading}

@@ -17,6 +17,8 @@ import { useThemeContext } from '../../contexts/theme';
 function Favorites() {
   const { theme } = useThemeContext();
   const dispatch = useDispatch();
+  const playTrack = useSelector((store) => store.tracks.playTrack);
+  console.log(playTrack);
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks);
   const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext();
   useEffect(() => {
@@ -39,7 +41,7 @@ function Favorites() {
             <StyledHeading theme={{theme}}>Мои треки</StyledHeading>
             <TracksContext.Provider value={favoritesTracks}>
               {favoritesTracks.length > 0 ? (
-                <CenterblockContent favoritesTracks={favoritesTracks} />
+                <CenterblockContent favoritesTracks={favoritesTracks} isPlay={playTrack?.id}/>
               ) : (
                 <StyledText theme={{ theme }}>
                   На этой странице нет треков

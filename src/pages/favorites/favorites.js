@@ -10,7 +10,7 @@ export const StyledContent = styled.div`
     padding-top: 20px;
     padding-right: 10px;
     display: grid;
-    grid-template-rows: 12% 6% 80%;
+    grid-template-rows: 12% 6% 78%;
 `
 
 export const StyledHeading = styled.h2`
