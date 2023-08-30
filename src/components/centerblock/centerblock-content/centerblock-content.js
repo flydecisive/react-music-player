@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-
+// max-height: ${(props) => props.maxHeight};
 export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: ${(props) => props.maxHeight};
+  display: grid;
+  grid-template-rows: ${(props) => props.isPlay ? '6% 80%' : '6% 92%'};
 `;
 
 export const StyledText = styled.p`

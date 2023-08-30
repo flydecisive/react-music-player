@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Nav from '../../components/nav/nav.jsx';
-import styles from './favorites.module.css';
+import {StyledContent,StyledFavorites,StyledHeading} from './favorites'
 import CenterblockContent from '../../components/centerblock/centerblock-content/centerblock-content.jsx';
 import Search from '../../components/search/search.jsx';
 import Sidebar from '../../components/sidebar/sidebar';
@@ -32,23 +32,24 @@ function Favorites() {
   }, [favoritesTracks, switchPlaylist]);
 
   return (
-    <div className={styles.favorites}>
-      <Nav />
-      <div className={styles.content}>
-        <Search />
-        <h2 className={styles.h2}>Мои треки</h2>
-        <TracksContext.Provider value={favoritesTracks}>
-          {favoritesTracks.length > 0 ? (
-            <CenterblockContent favoritesTracks={favoritesTracks} />
-          ) : (
-            <StyledText theme={{ theme }}>
-              На этой странице нет треков
-            </StyledText>
-          )}
-        </TracksContext.Provider>
-      </div>
-      <Sidebar />
-    </div>
+      <StyledFavorites>
+        <Nav />
+        <StyledContent>
+          <Search />
+            <StyledHeading theme={{theme}}>Мои треки</StyledHeading>
+            <TracksContext.Provider value={favoritesTracks}>
+              {favoritesTracks.length > 0 ? (
+                <CenterblockContent favoritesTracks={favoritesTracks} />
+              ) : (
+                <StyledText theme={{ theme }}>
+                  На этой странице нет треков
+                </StyledText>
+              )}
+            </TracksContext.Provider>
+        </StyledContent>
+
+        <Sidebar />
+      </StyledFavorites>
   );
 }
 

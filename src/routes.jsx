@@ -3,8 +3,8 @@ import Main from './pages/main/main';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 import NotFound from './pages/not-found/not-found.jsx';
-import PlaylistPage from './pages/playlist-page/playlist-page';
-import Favorites from './pages/favorites/favorites';
+import PlaylistPage from './pages/playlist-page/playlist-page.jsx';
+import Favorites from './pages/favorites/favorites.jsx';
 import ProtectedRoute from './components/protected-route/protected-route';
 
 function AppRoutes({ loading, auth, errorMessage, registerUser, setAuth }) {

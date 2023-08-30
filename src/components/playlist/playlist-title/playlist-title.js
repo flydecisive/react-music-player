@@ -6,6 +6,7 @@ export const StyledTitle = styled.div`
   margin-bottom: 24px;
   background-clip: content-box;
   color: ${(props) => (props.theme.theme ? '#000' : '#ffffff')};
+  margin-right: 18px;
 `;
 
 export const StyledCol = styled.div`

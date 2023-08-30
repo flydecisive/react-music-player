@@ -6,7 +6,9 @@ export const StyledCenterblock = styled.div`
   padding-top: 20px;
   padding-right: 10px;
   grid-column: 2 / 9;
-  height: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 12% 10% 10% 66%;
 `;
 
 export const StyledHeading = styled.h2`

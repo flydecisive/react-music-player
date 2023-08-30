@@ -11,26 +11,26 @@ function CenterblockContent({
   filterValues,
 }) {
   const playTrack = useSelector((store) => store.tracks.playTrack);
-  const location = window.location.href;
-  let maxHeight;
-  if (!playTrack?.id) {
-    if (location.includes('favorites') || location.includes('category')) {
-      maxHeight = '84vh';
-    } else {
-      maxHeight = '67vh';
-    }
-  }
+  // const location = window.location.href;
+  // let maxHeight;
+  // if (!playTrack?.id) {
+  //   if (location.includes('favorites') || location.includes('category')) {
+  //     maxHeight = '84dvh';
+  //   } else {
+  //     maxHeight = '98%';
+  //   }
+  // }
 
-  if (playTrack?.id) {
-    if (location.includes('favorites') || location.includes('category')) {
-      maxHeight = '74vh';
-    } else {
-      maxHeight = '58vh';
-    }
-  }
+  // if (playTrack?.id) {
+  //   if (location.includes('favorites') || location.includes('category')) {
+  //     maxHeight = '74dvh';
+  //   } else {
+  //     maxHeight = '58dvh';
+  //   }
+  // }
 
   return (
-    <StyledContent maxHeight={maxHeight}>
+    <StyledContent isPlay={playTrack.id}>
       <PlaylistTitle />
       <Playlist
         loading={loading}

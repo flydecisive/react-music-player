@@ -13,10 +13,11 @@ import {
   setTracksIds,
   setCurrentPlaylist,
 } from '../../store/actions/creators/tracks';
-
-import styles from './playlist-page.module.css';
+import { StyledWrapper,StyledContent,StyledHeading } from './playlist-page';
+import { useThemeContext } from '../../contexts/theme';
 
 function PlaylistPage() {
+  const {theme} = useThemeContext();
   const [fetchCollection, { data }] = useLazyGetCollectionByIdQuery();
   const dispatch = useDispatch();
   const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext();
@@ -62,17 +63,17 @@ function PlaylistPage() {
   }, [id]);
 
   return (
-    <div className={styles.wrapper}>
+    <StyledWrapper>
       <Nav />
-      <div className={styles.content}>
+      <StyledContent>
         <Search />
-        <h2 className={styles.h2}>{title}</h2>
+        <StyledHeading theme={{theme}}>{title}</StyledHeading>
         <TracksContext.Provider value={data?.items}>
           <CenterblockContent />
         </TracksContext.Provider>
-      </div>
+      </StyledContent>
       <Sidebar />
-    </div>
+    </StyledWrapper>
   );
 }
 
