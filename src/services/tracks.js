@@ -5,7 +5,7 @@ const TRACKS_TAG = 'Tracks';
 export const tracksApi = createApi({
   reducerPath: 'tracksApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://painassasin.online',
+    baseUrl: 'https://skypro-music-api.skyeng.tech',
   }),
   endpoints: (builder) => ({
     getAllTracks: builder.query({

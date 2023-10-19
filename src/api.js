@@ -1,4 +1,4 @@
-const path = 'https://painassasin.online';
+const path = 'https://skypro-music-api.skyeng.tech';
 
 // получение избранных треков
 export async function getFavoritesTracks(accessToken) {
