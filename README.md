@@ -1,5 +1,8 @@
 # Музыкальный плеер с использованием React.js и Redux
 
+## Ссылка на готовый проект
+https://flydecisive.github.io/react-music-player/
+
 ## Оценка задач
 
 ### Домашняя работа по context
