@@ -31,7 +31,7 @@ https://flydecisive.github.io/react-music-player/
 ## Техническое описание
 
 Установка зависимостей `npm install` <br />
-Запуск проекта `npm run dev` <br />
+Запуск проекта `npm run start` <br />
 Сборка проекта `npm run build` <br /><br />
 
 `src/` — директория, содержащая исходный код проекта.
