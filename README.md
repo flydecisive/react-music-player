@@ -28,6 +28,14 @@ https://flydecisive.github.io/react-music-player/
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="40" height="40"/>&nbsp; 
 </div>
 
+## Техническое описание
+
+Установка зависимостей `npm install` <br />
+Запуск проекта `npm run dev` <br />
+Сборка проекта `npm run build` <br /><br />
+
+`src/` — директория, содержащая исходный код проекта.
+
 ## Оценка задач
 
 ### Домашняя работа по context
